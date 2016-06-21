@@ -16,8 +16,9 @@ import com.masp.control.SetorControl;
 import com.masp.entity.Categoria;
 import com.masp.entity.Setor;
 
-public class SetorForm extends JInternalFrame implements ActionListener {
+public class SetorForm implements ActionListener {
 	
+	private JFrame janela = new JFrame();
 	private JTextField txtId = new JTextField();
 	private JTextField txtNome = new JTextField();
 	private JTextField txtAndar = new JTextField();
@@ -25,10 +26,10 @@ public class SetorForm extends JInternalFrame implements ActionListener {
 	private JButton btnLimpar = new JButton("Limpar");
 	private SetorControl controle = new SetorControl();
 	
-	public SetorForm(){
+	public SetorForm(JFrame framePai){
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
 		JPanel panForm = new JPanel( new GridLayout(4, 2) );
-		setContentPane( panPrincipal );
+		janela.setContentPane( panPrincipal );
 		panPrincipal.add(panForm, BorderLayout.CENTER);
 		panForm.add( new JLabel("ID: ") );
 		panForm.add( txtId );
@@ -42,9 +43,11 @@ public class SetorForm extends JInternalFrame implements ActionListener {
 		btnGravar.addActionListener(this);
 		btnLimpar.addActionListener(this);
 		
-		setSize(500, 200);
-		setDefaultCloseOperation(JInternalFrame.DISPOSE_ON_CLOSE);
-		setVisible(true);
+		janela.setSize(500, 200);
+		janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		janela.setVisible(true);
+		janela.setLocationRelativeTo(framePai);
+		
 	}
 	
 	public void setorToForm(Setor s) { 

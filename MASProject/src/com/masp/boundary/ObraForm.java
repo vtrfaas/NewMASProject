@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AcervoForm implements ActionListener{
+public class ObraForm implements ActionListener{
 
 	private JFrame janela;
 	private JTextField txtId;
@@ -34,7 +34,7 @@ public class AcervoForm implements ActionListener{
 	private JButton btnEditarSetor;
 	private JButton btnGravar;
 	
-	public AcervoForm(){
+	public ObraForm(){
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
 		JPanel panForm = new JPanel( new GridLayout(10, 3) );
 		janela = new JFrame("ACERVO");

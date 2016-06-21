@@ -18,7 +18,11 @@ public class ArtistaControl {
 	}
 	
 	public void remover(Artista a){
-		//TODO
+		aDAO.remover(a);
+	}
+	
+	public void atualizar(Artista a){
+		aDAO.atualizar(a);
 	}
 	
 	

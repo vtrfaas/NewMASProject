@@ -1,13 +1,15 @@
 package com.masp.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Ingresso {
 	private Long id;
 	private Date data;
 	private Float valor;
 	private int qtde;
-	private Exposicao exposicao;
+	private String exposicao;
+	private String tipoIngresso;
+	
 	public Long getId() {
 		return id;
 	}
@@ -32,11 +34,16 @@ public class Ingresso {
 	public void setQtde(int qtde) {
 		this.qtde = qtde;
 	}
-	public Exposicao getExposicao() {
+	public String getExposicao() {
 		return exposicao;
 	}
-	public void setExposicao(Exposicao exposicao) {
+	public void setExposicao(String exposicao) {
 		this.exposicao = exposicao;
 	}
-	
+	public String getTipoIngresso() {
+		return tipoIngresso;
+	}
+	public void setTipoIngresso(String tipoIngresso) {
+		this.tipoIngresso = tipoIngresso;
+	}
 }

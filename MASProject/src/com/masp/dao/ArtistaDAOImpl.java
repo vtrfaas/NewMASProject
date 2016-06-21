@@ -61,8 +61,22 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 
 	@Override
 	public void remover(Artista a) {
-		// TODO Auto-generated method stub
-		
+		Connection con = DBUtil.getInstancia().openConnection();
+		String sql = "DELETE FROM artista WHERE id = ?";
+		try {
+			PreparedStatement st = con.prepareStatement( sql );
+			st.setLong( 1, a.getId() );
+			st.setString( 2, a.getNome() );
+			st.setString( 3, a.getLocalNasc() );
+			java.sql.Date d = new java.sql.Date ( a.getAnoNasc().getTime() );
+			st.setDate(4, d );
+			d = new java.sql.Date ( a.getAnoMorte().getTime() );
+			st.setDate(5, d );
+			st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();
 	}
 
 	@Override

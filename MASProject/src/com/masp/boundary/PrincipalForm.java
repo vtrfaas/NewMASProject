@@ -26,11 +26,12 @@ public class PrincipalForm implements ActionListener {
 	private JButton btnArtista = new JButton("Artista");
 	private JButton btnEmprestimo = new JButton("Emprestimo");
 	private JButton btnIngresso = new JButton("Ingresso");
+	private JButton btnExposicao = new JButton("Exposicao");
 	private PrincipalControl controle;
 	
 	public PrincipalForm(){
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
-		JPanel panForm = new JPanel( new GridLayout(3, 3) );
+		JPanel panForm = new JPanel( new GridLayout(5, 3) );
 		JPanel panScreen = new JPanel();
 		janela.setContentPane(panPrincipal);
 		panPrincipal.add(panForm, BorderLayout.CENTER);
@@ -43,6 +44,12 @@ public class PrincipalForm implements ActionListener {
 		panForm.add(btnArtista);
 		panForm.add(btnSetor);
 		panForm.add(btnCategoria);
+		panForm.add( new JLabel() );
+		panForm.add( new JLabel() );
+		panForm.add( new JLabel() );
+		panForm.add( new JLabel() );
+		panForm.add(btnExposicao);
+		panForm.add( new JLabel() );
 		
 		btnIngresso.addActionListener(this);
 		btnAcervo.addActionListener(this);
@@ -50,6 +57,7 @@ public class PrincipalForm implements ActionListener {
 		btnArtista.addActionListener(this);
 		btnSetor.addActionListener(this);
 		btnCategoria.addActionListener(this);
+		btnExposicao.addActionListener(this);
 		
 //		int inset = 50;
 //        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -66,7 +74,19 @@ public class PrincipalForm implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		if("Setor".equals( cmd )){
-			SetorForm sForm = new SetorForm();
+			SetorForm sForm = new SetorForm(janela);
+		} else if("Ingresso".equals( cmd )){
+			IngressoForm iForm = new IngressoForm();
+		} else if("Acervo".equals( cmd )){
+			ObraForm aForm = new ObraForm();
+		} else if("Exposicao".equals( cmd )){
+//			ExposicaoForm eForm = new ExposicaoForm();
+		} else if("Artista".equals( cmd )){
+			ArtistaForm artForm = new ArtistaForm(); 
+		} else if("Emprestimo".equals( cmd )){
+//			EmprestimoForm eForm = new EmprestimoForm();
+		} else if("Categoria".equals( cmd )){
+			CategoriaForm cForm = new CategoriaForm();
 		}
 	}
 	

@@ -49,11 +49,12 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 
 	@Override
-	public void remover(String nome) {
+	public void remover(Long numero) {
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "DELETE FROM categoria WHERE nome LIKE ? ";
+		String sql = "DELETE FROM categoria WHERE id = ? ";
 		try {
 			PreparedStatement st = con.prepareStatement( sql );
+			st.setLong(1, numero);
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -26,7 +26,7 @@ public class CategoriaForm implements ActionListener {
 	private JButton btnLimpar = new JButton("Limpar");
 	private JButton btnGravar = new JButton("Gravar");
 	private JButton btnPesquisar = new JButton("Pesquisar");
-	private CategoriaControl controle = new CategoriaControl();
+	private CategoriaControl controle;
 	
 	public CategoriaForm(){
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
@@ -78,12 +78,21 @@ public class CategoriaForm implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		if("Pesquisar".equals( cmd )){
-			
+			controle = new CategoriaControl();
+			Categoria c = controle.pesquisar( txtNome.getText() );
+			categoriaToForm(c);
 		} else if("Limpar".equals( cmd )){
-			
+			limparCampos();
 		} else if("Gravar".equals( cmd )){
-			
+			controle = new CategoriaControl();
+			controle.adicionar( formToCategoria() );
 		}
+	}
+	
+	private void limparCampos(){
+		txtId.setText("");
+		txtNome.setText("");
+		txtADescricao.setText("");
 	}
 
 }

@@ -6,11 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import com.masp.control.ArtistaControl;
@@ -29,8 +31,10 @@ public class ArtistaForm implements ActionListener {
 	private JButton btnPesquisar = new JButton();
 	private ArtistaControl controle;
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	private JTable tabela;
 	
 	public ArtistaForm(){
+		//Adicionar uma tabela ao form
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
 		JPanel panForm = new JPanel( new GridLayout(6, 3) );
 		janela.setContentPane(panPrincipal);
@@ -91,12 +95,23 @@ public class ArtistaForm implements ActionListener {
 		String cmd = e.getActionCommand();
 		controle = new ArtistaControl();
 		if("Pesquisar".equals( cmd )){
-			
+			controle = new ArtistaControl();
+			List<Artista> a = controle.pesquisar( txtNome.getText() );
+			artistaToForm(a.get(0));
 		} else if("Limpar".equals( cmd )){
-			
+			limparCampos();
 		} else if("Gravar".equals( cmd )){
-			
+			controle = new ArtistaControl();
+			controle.adicionar( formToArtista() );
 		}
+	}
+	
+	private void limparCampos(){
+		txtId.setText("");
+		txtNome.setText("");
+		txtLocalNasc.setText("");
+		txtAnoNasc.setText("");
+		txtAnoMorte.setText("");
 	}
 
 }
