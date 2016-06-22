@@ -74,7 +74,7 @@ public class PrincipalForm implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		if("Setor".equals( cmd )){
-			SetorForm sForm = new SetorForm(janela);
+			SetorForm sForm = new SetorForm();
 		} else if("Ingresso".equals( cmd )){
 			IngressoForm iForm = new IngressoForm();
 		} else if("Acervo".equals( cmd )){

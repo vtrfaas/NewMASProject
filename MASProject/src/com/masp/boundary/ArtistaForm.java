@@ -26,9 +26,10 @@ public class ArtistaForm implements ActionListener {
 	private JTextField txtLocalNasc = new JTextField();
 	private JTextField txtAnoNasc = new JTextField();
 	private JTextField txtAnoMorte = new JTextField();
-	private JButton btnLimpar = new JButton();
-	private JButton btnGravar = new JButton();
-	private JButton btnPesquisar = new JButton();
+	private JButton btnLimpar = new JButton("Limpar");
+	private JButton btnGravar = new JButton("Gravar");
+	private JButton btnPesquisar = new JButton("Pesquisar");
+	private JButton btnExcluir = new JButton("Excluir");
 	private ArtistaControl controle;
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private JTable tabela;
@@ -49,16 +50,19 @@ public class ArtistaForm implements ActionListener {
 		panForm.add( txtLocalNasc );
 		panForm.add( new JLabel() );
 		panForm.add( new JLabel("Ano Nascimento: ") );
+		panForm.add( txtAnoNasc );
 		panForm.add( new JLabel() );
 		panForm.add( new JLabel("Ano Morte: ") );
+		panForm.add( txtAnoMorte );
 		panForm.add( new JLabel() );
+		panForm.add( btnExcluir );
 		panForm.add( btnLimpar );
 		panForm.add( btnGravar );
-		panForm.add( new JLabel() );
 		
 		btnPesquisar.addActionListener(this);
 		btnLimpar.addActionListener(this);
 		btnGravar.addActionListener(this);
+		btnExcluir.addActionListener(this);
 		
 		janela.setSize(500, 300);
 		janela.setVisible(true);
@@ -103,6 +107,8 @@ public class ArtistaForm implements ActionListener {
 		} else if("Gravar".equals( cmd )){
 			controle = new ArtistaControl();
 			controle.adicionar( formToArtista() );
+		} else if("Excluir".equals( cmd )){
+			//todo
 		}
 	}
 	
@@ -113,5 +119,4 @@ public class ArtistaForm implements ActionListener {
 		txtAnoNasc.setText("");
 		txtAnoMorte.setText("");
 	}
-
 }

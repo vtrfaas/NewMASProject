@@ -18,35 +18,41 @@ import com.masp.entity.Setor;
 
 public class SetorForm implements ActionListener {
 	
-	private JFrame janela = new JFrame();
+	private JFrame janela = new JFrame("SETOR");
 	private JTextField txtId = new JTextField();
 	private JTextField txtNome = new JTextField();
 	private JTextField txtAndar = new JTextField();
 	private JButton btnGravar = new JButton("Gravar");
 	private JButton btnLimpar = new JButton("Limpar");
+	private JButton btnPesquisar = new JButton("Pesquisar");
 	private SetorControl controle = new SetorControl();
 	
-	public SetorForm(JFrame framePai){
+	public SetorForm(){
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
-		JPanel panForm = new JPanel( new GridLayout(4, 2) );
+		JPanel panForm = new JPanel( new GridLayout(4, 3) );
 		janela.setContentPane( panPrincipal );
 		panPrincipal.add(panForm, BorderLayout.CENTER);
 		panForm.add( new JLabel("ID: ") );
 		panForm.add( txtId );
+		panForm.add( new JLabel() );
 		panForm.add( new JLabel("Nome: ") );
 		panForm.add( txtNome );
+		panForm.add( btnPesquisar );
 		panForm.add( new JLabel("Andar: ") );
 		panForm.add( txtAndar );
+		panForm.add( new JLabel() );
 		panForm.add( btnLimpar );
+		panForm.add( new JLabel() );
 		panForm.add( btnGravar );
 		
 		btnGravar.addActionListener(this);
 		btnLimpar.addActionListener(this);
+		btnPesquisar.addActionListener(this);
 		
 		janela.setSize(500, 200);
 		janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		janela.setVisible(true);
-		janela.setLocationRelativeTo(framePai);
+		janela.setLocationRelativeTo(null);
 		
 	}
 	
@@ -83,4 +89,5 @@ public class SetorForm implements ActionListener {
 		txtNome.setText("");
 		txtAndar.setText("");
 	}
+	
 }

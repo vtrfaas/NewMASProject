@@ -19,13 +19,14 @@ import com.masp.entity.Categoria;
 
 public class CategoriaForm implements ActionListener {
 
-	private JFrame janela = new JFrame("CADASTRO DE CATEGORIA");
+	private JFrame janela = new JFrame("CATEGORIA");
 	private JTextField txtId = new JTextField();
 	private JTextField txtNome = new JTextField();
-	private JTextArea txtADescricao = new JTextArea();
+	private JTextArea txtADescricao = new JTextArea(3, 6);
 	private JButton btnLimpar = new JButton("Limpar");
 	private JButton btnGravar = new JButton("Gravar");
 	private JButton btnPesquisar = new JButton("Pesquisar");
+	private JButton btnExcluir = new JButton("Excluir");
 	private CategoriaControl controle;
 	
 	public CategoriaForm(){
@@ -43,12 +44,13 @@ public class CategoriaForm implements ActionListener {
 		panForm.add(txtADescricao);
 		panForm.add( new JLabel() );
 		panForm.add( btnLimpar );
-		panForm.add( new JLabel() );
 		panForm.add( btnGravar );
+		panForm.add( btnExcluir );
 		
 		btnPesquisar.addActionListener(this);
 		btnLimpar.addActionListener(this);
 		btnGravar.addActionListener(this);
+		btnExcluir.addActionListener(this);
 		
 		janela.setSize(400, 300);
 		janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -86,6 +88,8 @@ public class CategoriaForm implements ActionListener {
 		} else if("Gravar".equals( cmd )){
 			controle = new CategoriaControl();
 			controle.adicionar( formToCategoria() );
+		} else if("Excluir".equals( cmd )){
+			
 		}
 	}
 	
@@ -94,5 +98,4 @@ public class CategoriaForm implements ActionListener {
 		txtNome.setText("");
 		txtADescricao.setText("");
 	}
-
 }

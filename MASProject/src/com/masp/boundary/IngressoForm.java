@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -73,23 +74,37 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 		
 		janela.setContentPane( panPrincipal );
 		
-		janela.setSize(400, 200);
+		janela.setSize(600, 400);
 		janela.setVisible(true);
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.setLocationRelativeTo(null);
 		
 	}
 	
-	public void ingressoToForm(){
+	public void ingressoToForm(Ingresso i){
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		txtId.setText( Long.toString( i.getId() ) );
+		txtData.setText( sdf.format( i.getData() ) );
+//		cbExposicao.setText( c.getDescricao() );
+//		cbTipoIngresso.setSelectedIndex(anIndex);
 		
 	}
 	
 	public Ingresso formToIngresso(){
 		return null;
+		//pegar cada linha da tabela
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
+		if("Adicionar".equals( cmd )){
+			
+		} else if("Pesquisar".equals( cmd )){
+			
+		} else if("Excluir".equals( cmd )){
+			
+		}
 	}
 
 	@Override
@@ -97,5 +112,4 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
