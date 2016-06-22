@@ -140,22 +140,32 @@ public class ObraForm implements ActionListener {
 		}
 	}
 
-	public void obraToForm(Obra a) {
-		
+	public void acervoToForm(Obra o) {
+		// txtAnoNasc.setText( sdf.format( a.getAnoNasc() ) );
+		txtId.setText(Integer.toString(o.getId()));
+		txtNome.setText(o.getNomeObra());
+		txtAno.setText(sdf.format(o.getDtComposicao()));
+		txtDescricao.setText(o.getDescricao());
+		txtValor.setText(Float.toString(o.getValor()));
+		// TODO chama metodos pesquisar pelo id e retorna para combos
 	}
 
-	public Obra formToObra() {
+	public Obra formToAcervo() {
 		// a.setAnoNasc( sdf.parse( txtAnoNasc.getText() ) );
-		Obra a = new Obra();
-//		a.setIdArtista(idArtista);
-//		a.setIdCategoria(idCategoria);
-//		a.setIdMaterial(idMaterial);
-//		a.setNomeObra(nomeObra);
-//		a.setValor(valor);
-//		a.setDtComposicao(dtComposicao);
-//		a.setDescricao(descricao);
-//		a.setCaminhoImagem(caminhoImagem);
-//		a.setId(id);
+		Obra o = new Obra();
+//		o.setIdArtista(idArtista);
+//		o.setIdCategoria(idCategoria);
+//		o.setIdMaterial(idMaterial);
+//		o.setNomeObra(nomeObra);
+//		o.setValor(valor);
+//		o.setDtComposicao(dtComposicao);
+//		o.setDescricao(descricao);
+//		o.setCaminhoImagem(caminhoImagem);
+//		o.setId(id);
 		return null;
+	}
+
+	public static void main(String[] args) {
+		ObraForm o = new ObraForm();
 	}
 }
