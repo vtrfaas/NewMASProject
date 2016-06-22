@@ -52,13 +52,34 @@ public class SetorDAOImpl implements SetorDAO{
 	}
 
 	@Override
-	public void atualizar(Setor s) {
-		
+	public void atualizar(Setor oldS, Setor newS) {
+		Connection con = DBUtil.getInstancia().openConnection();
+		String sql = "UPDATE categoria SET (?, ?, ?) WHERE " +
+					 "id = ?";
+		try {
+			PreparedStatement st = con.prepareStatement( sql );
+			st.setLong( 1, newS.getId() );
+			st.setString( 2, newS.getNome() );
+			st.setString( 3, newS.getAndar() );
+			st.setLong(4, oldS.getId());
+			st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();
 	}
 
 	@Override
-	public void excluir(Setor s) {
-		// TODO Auto-generated method stub
-		
+	public void excluir(String numero) {
+		Connection con = DBUtil.getInstancia().openConnection();
+		String sql = "DELETE FROM categoria WHERE id = ? ";
+		try {
+			PreparedStatement st = con.prepareStatement( sql );
+			st.setLong(1, Long.parseLong(numero) );
+			st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();
 	}
 }

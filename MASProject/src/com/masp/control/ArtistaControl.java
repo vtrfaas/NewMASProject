@@ -17,12 +17,12 @@ public class ArtistaControl {
 		return aDAO.pesquisar(nome);
 	}
 	
-	public void remover(Artista a){
-		aDAO.remover(a);
+	public void remover(String nome){
+		aDAO.remover(nome);
 	}
 	
-	public void atualizar(Artista a){
-		aDAO.atualizar(a);
+	public void atualizar(Artista oldA, Artista newA){
+		aDAO.atualizar(oldA, newA);
 	}
 	
 	
