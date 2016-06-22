@@ -11,7 +11,6 @@ import com.masp.dao.IngressoDAO;
 import com.masp.dao.IngressoDAOImpl;
 import com.masp.entity.Ingresso;
 
-
 public class IngressoControl implements TableModel {
 	
 	private IngressoDAO iDAO = new IngressoDAOImpl();
@@ -77,6 +76,13 @@ public class IngressoControl implements TableModel {
 			case 3 : ing.setData((Date) aValue);
 			case 4 : ing.setValor((Float) aValue);
 		}
+	}
+	
+	public void setLista(List<Ingresso> lista) {
+		this.lista = lista;
+	}
+	public List<Ingresso> getLista() {
+		return lista;
 	}
 
 	@Override

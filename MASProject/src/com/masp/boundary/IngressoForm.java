@@ -99,7 +99,10 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		if("Adicionar".equals( cmd )){
-			
+			controle = new IngressoControl();
+			controle.adicionar( formToIngresso() );
+			tabela.invalidate();
+			tabela.revalidate();
 		} else if("Pesquisar".equals( cmd )){
 			
 		} else if("Excluir".equals( cmd )){
@@ -109,7 +112,9 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		// TODO Auto-generated method stub
-		
+		int linha = tabela.getSelectedRow();
+		Ingresso i = controle.getLista().get( linha );
+		ingressoToForm( i );
+		System.out.println(" Linha selecionada " + linha);
 	}
 }

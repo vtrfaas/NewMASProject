@@ -32,7 +32,7 @@ public class SetorDAOImpl implements SetorDAO{
 	public List<Setor> pesquisar(String nomeSetor) {
 		List<Setor> lista = new ArrayList<Setor>();
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "SELECT nome FROM setor WHERE nome like ? ";
+		String sql = "SELECT * FROM setor WHERE nome like ? ";
 		try {
 			PreparedStatement st = con.prepareStatement( sql );
 			st.setString( 1, "%" + nomeSetor + "%" );
@@ -49,5 +49,16 @@ public class SetorDAOImpl implements SetorDAO{
 		}
 		DBUtil.getInstancia().closeConnection();	
 		return lista;
+	}
+
+	@Override
+	public void atualizar(Setor s) {
+		
+	}
+
+	@Override
+	public void excluir(Setor s) {
+		// TODO Auto-generated method stub
+		
 	}
 }

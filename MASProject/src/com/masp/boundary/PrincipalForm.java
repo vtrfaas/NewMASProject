@@ -27,6 +27,7 @@ public class PrincipalForm implements ActionListener {
 	private JButton btnEmprestimo = new JButton("Emprestimo");
 	private JButton btnIngresso = new JButton("Ingresso");
 	private JButton btnExposicao = new JButton("Exposicao");
+	private JButton btnMaterial = new JButton("Material");
 	private PrincipalControl controle;
 	
 	public PrincipalForm(){
@@ -80,11 +81,11 @@ public class PrincipalForm implements ActionListener {
 		} else if("Acervo".equals( cmd )){
 			ObraForm aForm = new ObraForm();
 		} else if("Exposicao".equals( cmd )){
-//			ExposicaoForm eForm = new ExposicaoForm();
+			ExposicaoForm eForm = new ExposicaoForm();
 		} else if("Artista".equals( cmd )){
 			ArtistaForm artForm = new ArtistaForm(); 
 		} else if("Emprestimo".equals( cmd )){
-//			EmprestimoForm eForm = new EmprestimoForm();
+			EmprestimoForm eForm = new EmprestimoForm();
 		} else if("Categoria".equals( cmd )){
 			CategoriaForm cForm = new CategoriaForm();
 		}
