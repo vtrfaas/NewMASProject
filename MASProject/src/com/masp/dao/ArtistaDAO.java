@@ -7,6 +7,6 @@ import com.masp.entity.Artista;
 public interface ArtistaDAO {
 	public void adicionar(Artista a);
 	public List<Artista> pesquisar(String nome);
-	public void remover(Artista a);
-	public void atualizar(Artista a);
+	public void remover(String nome);
+	public void atualizar(Artista oldA, Artista newA);
 }

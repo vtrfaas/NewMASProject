@@ -60,18 +60,12 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 	}
 
 	@Override
-	public void remover(Artista a) {
+	public void remover(String nome) {
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "DELETE FROM artista WHERE id = ?";
+		String sql = "DELETE FROM artista WHERE nome = ?";
 		try {
 			PreparedStatement st = con.prepareStatement( sql );
-			st.setLong( 1, a.getId() );
-			st.setString( 2, a.getNome() );
-			st.setString( 3, a.getLocalNasc() );
-			java.sql.Date d = new java.sql.Date ( a.getAnoNasc().getTime() );
-			st.setDate(4, d );
-			d = new java.sql.Date ( a.getAnoMorte().getTime() );
-			st.setDate(5, d );
+			st.setString( 1, nome );
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,7 +74,7 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 	}
 
 	@Override
-	public void atualizar(Artista a) {
+	public void atualizar(Artista oldA, Artista newA) {
 		// TODO Auto-generated method stub
 		
 	}

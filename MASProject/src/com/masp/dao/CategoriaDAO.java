@@ -6,5 +6,5 @@ public interface CategoriaDAO {
 	public void adicionar(Categoria c);
 	public Categoria pesquisar(String nome);
 	public void remover(Long numero);
-	public void atualizar(Categoria c);
+	public void atualizar(Categoria oldC, Categoria newC);
 }

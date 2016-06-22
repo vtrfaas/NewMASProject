@@ -7,6 +7,6 @@ import com.masp.entity.Setor;
 public interface SetorDAO {
 	public void adicionar(Setor s);
 	public List<Setor> pesquisar(String nomeSetor);
-	public void atualizar(Setor s);
-	public void excluir(Setor s);
+	public void atualizar(Setor oldS, Setor newS);
+	public void excluir(String numero);
 }

@@ -64,15 +64,16 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 
 	//Testar
 	@Override
-	public void atualizar(Categoria c) {
+	public void atualizar(Categoria oldC, Categoria newC) {
 		Connection con = DBUtil.getInstancia().openConnection();
 		String sql = "UPDATE categoria SET (?, ?, ?) WHERE " +
 					 "id = ?";
 		try {
 			PreparedStatement st = con.prepareStatement( sql );
-			st.setLong( 1, c.getId() );
-			st.setString( 2, c.getNome() );
-			st.setString( 3, c.getDescricao() );
+			st.setLong( 1, newC.getId() );
+			st.setString( 2, newC.getNome() );
+			st.setString( 3, newC.getDescricao() );
+			st.setLong( 4, oldC.getId() );
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -16,4 +16,12 @@ public class SetorControl {
 	public List<Setor> pesquisar(String nomeSetor){
 		return sDAO.pesquisar(nomeSetor);
 	}
+	
+	public void remover(String numero){
+		sDAO.excluir(numero);
+	}
+	
+	public void atualizar(Setor oldS, Setor newS){
+		
+	}
 }
