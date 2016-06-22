@@ -1,90 +1,116 @@
 package com.masp.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Obra {
-	private Long id;
-	private Artista artista;
-	private String nome;
-	private Categoria categoria;
-	private Material material;
+	private int id;
+	private int idArtista;
+	private int idCategoria;
+	private int idMaterial;
+	private int idSetor;
+	private String nomeObra;
 	private String descricao;
-	private String imagem;
-	private Date dataComposicao;
-	private boolean proprietario;
+	private String caminhoImagem;
 	private String status;
-	private Setor setor;
-	private Float preco;
-	public Long getId() {
-		return id;
+	private Date dtComposicao;
+	private Float valor;
+	private boolean proprietario;
+	
+
+	public int getIdSetor() {
+		return idSetor;
 	}
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setIdSetor(int idSetor) {
+		this.idSetor = idSetor;
 	}
-	public Artista getArtista() {
-		return artista;
-	}
-	public void setArtista(Artista artista) {
-		this.artista = artista;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public Categoria getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-	public Material getMaterial() {
-		return material;
-	}
-	public void setMaterial(Material material) {
-		this.material = material;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	public String getImagem() {
-		return imagem;
-	}
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
-	}
-	public Date getDataComposicao() {
-		return dataComposicao;
-	}
-	public void setDataComposicao(Date dataComposicao) {
-		this.dataComposicao = dataComposicao;
-	}
-	public boolean isProprietario() {
-		return proprietario;
-	}
-	public void setProprietario(boolean proprietario) {
-		this.proprietario = proprietario;
-	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Setor getSetor() {
-		return setor;
+
+	public boolean isProprietario() {
+		return proprietario;
 	}
-	public void setSetor(Setor setor) {
-		this.setor = setor;
+
+	public void setProprietario(boolean proprietario) {
+		this.proprietario = proprietario;
 	}
-	public Float getPreco() {
-		return preco;
+
+	public int getId() {
+		return id;
 	}
-	public void setPreco(Float preco) {
-		this.preco = preco;
+
+	public void setId(int id) {
+		this.id = id;
 	}
+
+	public int getIdArtista() {
+		return idArtista;
+	}
+
+	public void setIdArtista(int idArtista) {
+		this.idArtista = idArtista;
+	}
+
+	public int getIdCategoria() {
+		return idCategoria;
+	}
+
+	public void setIdCategoria(int idCategoria) {
+		this.idCategoria = idCategoria;
+	}
+
+	public int getIdMaterial() {
+		return idMaterial;
+	}
+
+	public void setIdMaterial(int idMaterial) {
+		this.idMaterial = idMaterial;
+	}
+
+	public String getNomeObra() {
+		return nomeObra;
+	}
+
+	public void setNomeObra(String nomeObra) {
+		this.nomeObra = nomeObra;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getCaminhoImagem() {
+		return caminhoImagem;
+	}
+
+	public void setCaminhoImagem(String caminhoImagem) {
+		this.caminhoImagem = caminhoImagem;
+	}
+
+	public Date getDtComposicao() {
+		return dtComposicao;
+	}
+
+	public void setDtComposicao(Date dtComposicao) {
+		this.dtComposicao = dtComposicao;
+	}
+
+	public Float getValor() {
+		return valor;
+	}
+
+	public void setValor(Float valor) {
+		this.valor = valor;
+	}
+
 }

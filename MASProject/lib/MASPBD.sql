@@ -73,6 +73,8 @@ ALTER TABLE obra ADD CONSTRAINT `fk_material` FOREIGN KEY (`id_material`)REFEREN
 
 ALTER TABLE obra ADD CONSTRAINT `fk_setor` FOREIGN KEY (`id_setor`)REFERENCES `setor` (`id`);
 
+ALTER TABLE obra MODIFY imagem varchar(400);
+
 CREATE TABLE emprestimo (
 	id int primary key auto_increment,
 	id_obra int,
