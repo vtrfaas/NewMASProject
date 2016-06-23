@@ -11,19 +11,16 @@ import com.masp.entity.Obra;
 
 public class ObraDAOImpl implements ObraDAO {
 
-	private Connection c;
 
-	public ObraDAOImpl() {
-		c = DBUtil.getInstancia().openConnection();
-	}
 
 	@Override
 	public void adicionar(Obra o) {
 		String sql = "INSERT INTO obra (id_artista , nome," + "id_categoria, id_material, descricao,	"
 				+ "imagem, dataComposicao, proprietario,	" + "status, id_setor, preco) "
 				+ "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+		Connection con = DBUtil.getInstancia().openConnection();
 		try {
-			PreparedStatement ps = c.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setLong(1, o.getIdArtista());
 			ps.setString(2, o.getNomeObra());
 			ps.setLong(3, o.getIdCategoria());
@@ -37,10 +34,10 @@ public class ObraDAOImpl implements ObraDAO {
 			ps.setLong(10, o.getIdSetor());
 			ps.setFloat(11, o.getValor());
 			ps.executeUpdate();
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		DBUtil.getInstancia().closeConnection();
 
 	}
 
@@ -48,8 +45,9 @@ public class ObraDAOImpl implements ObraDAO {
 	public List<Obra> pesquisar(String nome) {
 		List<Obra> obras = new ArrayList<Obra>();
 		String sql = "SELECT * FROM obra WHERE nome like ?";
+		Connection con = DBUtil.getInstancia().openConnection();
 		try {
-			PreparedStatement ps = c.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, "%" + nome + "%");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
@@ -73,22 +71,23 @@ public class ObraDAOImpl implements ObraDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		DBUtil.getInstancia().closeConnection();
 		return obras;
 	}
 
 	@Override
 	public void remover(Obra o) {
 		String sql = "DELETE FROM obra WHERE id = ?";
+		Connection con = DBUtil.getInstancia().openConnection();
 		try {
-			PreparedStatement ps = c.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setLong(1, o.getId());
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		DBUtil.getInstancia().closeConnection();
 	}
 
 	@Override
@@ -96,8 +95,9 @@ public class ObraDAOImpl implements ObraDAO {
 		String sql = "UPDATE obra SET id_artista = ? , nome = ?," + "id_categoria = ?, id_material = ?, descricao = ?,"
 				+ "imagem = ?, dataComposicao = ?, proprietario = ?,"
 				+ "status = ?, id_setor = ?, preco = ? WHERE id = ?";
+		Connection con = DBUtil.getInstancia().openConnection();
 		try {
-			PreparedStatement ps = c.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setLong(1, o.getIdArtista());
 			ps.setString(2, o.getNomeObra());
 			ps.setLong(3, o.getIdCategoria());
@@ -117,7 +117,7 @@ public class ObraDAOImpl implements ObraDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		DBUtil.getInstancia().closeConnection();
 	}
 
 }

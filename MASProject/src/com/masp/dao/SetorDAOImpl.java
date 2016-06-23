@@ -22,6 +22,7 @@ public class SetorDAOImpl implements SetorDAO{
 			st.setString( 2, s.getNome() );
 			st.setString( 3, s.getAndar() );
 			st.executeUpdate();
+			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -44,6 +45,8 @@ public class SetorDAOImpl implements SetorDAO{
 				s.setAndar(  rs.getString("andar")  );
 				lista.add( s );
 			}
+			st.close();
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -55,14 +58,18 @@ public class SetorDAOImpl implements SetorDAO{
 	public Setor pesquisarPorId(Long id) {
 		Setor s = new Setor();
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "SELECT * FROM setor WHERE nome id = ? ";
+		String sql = "SELECT * FROM setor WHERE id = ? ";
 		try {
 			PreparedStatement st = con.prepareStatement( sql );
 			st.setLong( 1, id);
 			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
 				s.setId(  rs.getLong("id")  );
 				s.setNome(  rs.getString("nome")  );
 				s.setAndar(  rs.getString("andar")  );
+			}
+			st.close();
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -84,6 +91,8 @@ public class SetorDAOImpl implements SetorDAO{
 				s.setNome( rs.getString("nome") );
 				setores.add(s);
 			}
+			st.close();
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -104,6 +113,7 @@ public class SetorDAOImpl implements SetorDAO{
 			st.setString( 3, newS.getAndar() );
 			st.setLong(4, oldS.getId());
 			st.executeUpdate();
+			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -118,6 +128,7 @@ public class SetorDAOImpl implements SetorDAO{
 			PreparedStatement st = con.prepareStatement( sql );
 			st.setLong(1, Long.parseLong(numero) );
 			st.executeUpdate();
+			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

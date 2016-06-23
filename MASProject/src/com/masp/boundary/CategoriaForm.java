@@ -65,7 +65,6 @@ public class CategoriaForm implements ActionListener {
 	public Categoria formToCategoria() { 
 		Categoria c = new Categoria();
 		try {
-			c.setId( Long.parseLong( txtId.getText() ) );
 			c.setNome( txtNome.getText() );				
 			c.setDescricao( txtADescricao.getText() );
 		} catch (NumberFormatException e ){

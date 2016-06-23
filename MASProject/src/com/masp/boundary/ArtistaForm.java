@@ -82,7 +82,7 @@ public class ArtistaForm implements ActionListener {
 	public Artista formToArtista() { 
 		Artista a = new Artista();
 		try {
-			a.setId( Long.parseLong( txtId.getText() ) );
+//			a.setId( Long.parseLong( txtId.getText() ) );
 			a.setNome( txtNome.getText() );				
 			a.setLocalNasc( txtLocalNasc.getText() );
 			a.setAnoNasc( sdf.parse( txtAnoNasc.getText() ) );

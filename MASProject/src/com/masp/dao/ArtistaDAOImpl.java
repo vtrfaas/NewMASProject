@@ -27,6 +27,7 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 			d = new java.sql.Date ( a.getAnoMorte().getTime() );
 			st.setDate(4, d );
 			st.executeUpdate();
+			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -38,7 +39,7 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 		List<Artista> lista = new ArrayList<Artista>();
 		Artista a = new Artista();
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "SELECT * FROM artista WHERE nome like ? ";
+		String sql = "SELECT DISTINCT * FROM artista WHERE nome like ? ";
 		try {
 			PreparedStatement st = con.prepareStatement( sql );
 			st.setString( 1, "%" + nome + "%" );
@@ -51,6 +52,8 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 				a.setAnoMorte(  rs.getDate("anoMorte") );
 				lista.add( a );
 			}
+			st.close();
+			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -67,11 +70,15 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 			PreparedStatement st = con.prepareStatement( sql );
 			st.setLong( 1, id);
 			ResultSet rs = st.executeQuery();
+			while(rs.next()){
 				a.setId(  rs.getLong("id")  );
 				a.setNome(  rs.getString("nome")  );
 				a.setLocalNasc(  rs.getString("localNasc")  );
 				a.setAnoMorte( rs.getDate("anoNasc") );
 				a.setAnoMorte(  rs.getDate("anoMorte") );
+			}
+				st.close();
+				rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -86,6 +93,7 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 			PreparedStatement st = con.prepareStatement( sql );
 			st.setString( 1, nome );
 			st.executeUpdate();
+			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
