@@ -29,7 +29,7 @@ public class SetorDAOImpl implements SetorDAO{
 	}
 
 	@Override
-	public List<Setor> pesquisar(String nomeSetor) {
+	public List<Setor> pesquisarPorNome(String nomeSetor) {
 		List<Setor> lista = new ArrayList<Setor>();
 		Connection con = DBUtil.getInstancia().openConnection();
 		String sql = "SELECT * FROM setor WHERE nome like ? ";
@@ -49,6 +49,25 @@ public class SetorDAOImpl implements SetorDAO{
 		}
 		DBUtil.getInstancia().closeConnection();	
 		return lista;
+	}
+	
+	@Override
+	public Setor pesquisarPorId(Long id) {
+		Setor s = new Setor();
+		Connection con = DBUtil.getInstancia().openConnection();
+		String sql = "SELECT * FROM setor WHERE nome id = ? ";
+		try {
+			PreparedStatement st = con.prepareStatement( sql );
+			st.setLong( 1, id);
+			ResultSet rs = st.executeQuery();
+				s.setId(  rs.getLong("id")  );
+				s.setNome(  rs.getString("nome")  );
+				s.setAndar(  rs.getString("andar")  );
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();	
+		return s;
 	}
 
 	@Override
@@ -104,6 +123,8 @@ public class SetorDAOImpl implements SetorDAO{
 		}
 		DBUtil.getInstancia().closeConnection();
 	}
+
+
 
 	
 }

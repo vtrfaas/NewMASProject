@@ -33,12 +33,12 @@ public class MaterialDAOImpl implements MaterialDAO {
 	}
 
 	@Override
-	public List<Material> pesquisar(Long id) {
+	public List<Material> pesquisarNome(String nome) {
 		List<Material> materiais = new ArrayList<Material>();
-		String sql = "SELECT * FROM material WHERE id like ?";
+		String sql = "SELECT * FROM material WHERE nome like ?";
 		try {
 			PreparedStatement ps = c.prepareStatement(sql);
-			ps.setLong(1, id);
+			ps.setString(1, nome);
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
@@ -57,6 +57,32 @@ public class MaterialDAOImpl implements MaterialDAO {
 		}
 		
 		return materiais;
+	}
+
+		
+	@Override
+	public Material pesquisarId(Long id) {
+		Material m = new Material();
+		Categoria ca = new Categoria();
+		
+		try {
+			String sql = "SELECT * FROM material WHERE id = ?";
+			PreparedStatement ps = c.prepareStatement(sql);
+			ps.setLong(1, id);
+			ResultSet rs = ps.executeQuery();
+				
+				m.setId(rs.getLong("id"));
+				m.setNome(rs.getString("nome"));
+				ca.setId(rs.getLong("id_categoria"));
+				m.setCategoria(ca);
+			ps.close();
+			rs.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return m;
 	}
 
 	@Override
@@ -112,4 +138,5 @@ public class MaterialDAOImpl implements MaterialDAO {
 
 	}
 
+	
 }

@@ -13,8 +13,8 @@ public class ArtistaControl {
 		aDAO.adicionar(a);
 	}
 	
-	public List<Artista> pesquisar(String nome){
-		return aDAO.pesquisar(nome);
+	public List<Artista> pesquisarPorNome(String nome){
+		return aDAO.pesquisarPorNome(nome);
 	}
 	
 	public void remover(String nome){
@@ -23,6 +23,10 @@ public class ArtistaControl {
 	
 	public void atualizar(Artista oldA, Artista newA){
 		aDAO.atualizar(oldA, newA);
+	}
+	
+	public Artista pesquisarPorId(Long id){
+		return aDAO.pesquisarPorId(id);
 	}
 	
 	

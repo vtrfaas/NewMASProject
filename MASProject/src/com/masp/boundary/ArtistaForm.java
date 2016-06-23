@@ -34,6 +34,7 @@ public class ArtistaForm implements ActionListener {
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	private JTable tabela;
 	
+	
 	public ArtistaForm(){
 		//Adicionar uma tabela ao form
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
@@ -100,7 +101,7 @@ public class ArtistaForm implements ActionListener {
 		controle = new ArtistaControl();
 		if("Pesquisar".equals( cmd )){
 			controle = new ArtistaControl();
-			List<Artista> a = controle.pesquisar( txtNome.getText() );
+			List<Artista> a = controle.pesquisarPorNome( txtNome.getText() );
 			artistaToForm(a.get(0));
 		} else if("Limpar".equals( cmd )){
 			limparCampos();
@@ -119,4 +120,5 @@ public class ArtistaForm implements ActionListener {
 		txtAnoNasc.setText("");
 		txtAnoMorte.setText("");
 	}
+	
 }

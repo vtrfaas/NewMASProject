@@ -40,7 +40,7 @@ public class CategoriaForm implements ActionListener {
 		panForm.add( new JLabel("Nome: ") );
 		panForm.add( txtNome );
 		panForm.add( btnPesquisar );
-		panForm.add( new JLabel("Descrição: ") );
+		panForm.add( new JLabel("Descriï¿½ï¿½o: ") );
 		panForm.add(txtADescricao);
 		panForm.add( new JLabel() );
 		panForm.add( btnLimpar );
@@ -81,7 +81,7 @@ public class CategoriaForm implements ActionListener {
 		String cmd = e.getActionCommand();
 		if("Pesquisar".equals( cmd )){
 			controle = new CategoriaControl();
-			Categoria c = controle.pesquisar( txtNome.getText() );
+			Categoria c = controle.pesquisarPorNome( txtNome.getText() );
 			categoriaToForm(c);
 		} else if("Limpar".equals( cmd )){
 			limparCampos();

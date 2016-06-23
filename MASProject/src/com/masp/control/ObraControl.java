@@ -49,7 +49,6 @@ public class ObraControl {
 	}
 	
 	
-	public ObraControl(){}
 	
 	
 
@@ -67,11 +66,16 @@ public class ObraControl {
 		oDAO.remover(obra);
 	}
 	
+
+	public Obra pesquisar(String obra) {
+		return oDAO.pesquisar(obra).get(0);
+	}
+	
 	public void preencherArtista(String nome){
 		ArtistaDAO aDAO = new ArtistaDAOImpl();
 		List<Artista> artistas = new ArrayList<Artista>();
 		
-		artistas = aDAO.pesquisar(nome);
+		artistas = aDAO.pesquisarPorNome(nome);
 		
 		for (int i = 0; i < artistas.size(); i++) {
 			cbArtista.addItem(artistas.get(i).getNome());
@@ -134,5 +138,8 @@ public class ObraControl {
 		return caminhoArquivo;
 		
 	}
+
+
+
 	
 }

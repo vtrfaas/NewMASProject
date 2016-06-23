@@ -10,13 +10,11 @@ public class CategoriaControl {
 	public void adicionar(Categoria c){
 		cDAO.adicionar(c);
 	}
-	public Categoria pesquisar(String nome){
-		return cDAO.pesquisar(nome);
+	public Categoria pesquisarPorNome(String nome){
+		return cDAO.pesquisarPorNome(nome);
 	}
 	
-	//Este metodo serve SÓ para auto-selecionar um item da combo
-	public String pesquisarSelecionado(Long idCategoria) {
-		// TODO Auto-generated method stub
-		return null;
+	public Categoria pesquisarPorId(Long idCategoria) {
+		return cDAO.pesquisarPorId(idCategoria);
 	}
 }

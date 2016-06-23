@@ -13,8 +13,13 @@ public class SetorControl {
 	public void adicionar(Setor s){
 		sDAO.adicionar(s);
 	}
-	public List<Setor> pesquisar(String nomeSetor){
-		return sDAO.pesquisar(nomeSetor);
+	public List<Setor> pesquisarPorNome(String nomeSetor){
+		return sDAO.pesquisarPorNome(nomeSetor);
+	}
+	
+	public Setor pesquisarPorId(Long id){
+		return sDAO.pesquisarPorId(id);
+		
 	}
 	
 	public void remover(String numero){

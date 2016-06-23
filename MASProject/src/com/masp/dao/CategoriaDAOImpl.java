@@ -29,7 +29,7 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 
 	@Override
-	public Categoria pesquisar(String nome) {
+	public Categoria pesquisarPorNome(String nome) {
 		Categoria c = new Categoria();
 		Connection con = DBUtil.getInstancia().openConnection();
 		String sql = "SELECT nome FROM categoria WHERE nome like ? ";
@@ -46,6 +46,26 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		DBUtil.getInstancia().closeConnection();	
 		return c;
 	}
+	
+	@Override
+	public Categoria pesquisarPorId(Long id) {
+		Categoria c = new Categoria();
+		Connection con = DBUtil.getInstancia().openConnection();
+		String sql = "SELECT nome FROM categoria WHERE id = ? ";
+		try {
+			PreparedStatement st = con.prepareStatement( sql );
+			st.setLong( 1, id);
+			ResultSet rs = st.executeQuery();
+			c.setId(  rs.getLong("id")  );
+			c.setNome(  rs.getString("nome")  );
+			c.setDescricao(  rs.getString("descricao")  );
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();	
+		return c;
+	}
+	
 	
 	@Override
 	public List<Categoria> pesquisarTudo() {
@@ -100,6 +120,8 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		}
 		DBUtil.getInstancia().closeConnection();
 	}
+
+	
 
 	
 }

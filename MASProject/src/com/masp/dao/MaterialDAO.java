@@ -8,7 +8,9 @@ import com.masp.entity.Material;
 public interface MaterialDAO {
 	public void adicionar(Material m);
 
-	public List<Material> pesquisar(Long id);
+	public List<Material> pesquisarNome(String nome);
+	
+	public Material pesquisarId(Long id);
 	
 	public List<Material> pesquisarTudo();
 
