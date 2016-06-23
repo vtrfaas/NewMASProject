@@ -18,6 +18,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import com.masp.control.CategoriaControl;
+import com.masp.control.MaterialControl;
 import com.masp.control.ObraControl;
 import com.masp.control.SetorControl;
 import com.masp.entity.Obra;
@@ -82,7 +83,7 @@ public class ObraForm implements ActionListener {
 		janela.setContentPane(panPrincipal);
 
 		cbArtista.setEditable(true);
-
+		
 		panPrincipal.add(panForm, BorderLayout.WEST);
 		panPrincipal.add(panImg, BorderLayout.EAST);
 		panPrincipal.add(panBtn, BorderLayout.SOUTH);
@@ -127,7 +128,13 @@ public class ObraForm implements ActionListener {
 		panForm.add(new JLabel("Valor: "));
 		panForm.add(txtValor);
 		panForm.add(new JLabel());
-
+		
+		txtId.setEditable(false);
+		
+		cbStatus.addItem("Emprestado");
+		cbStatus.addItem("Em Manutenção");
+		cbStatus.addItem("Em Exposição");
+		
 		panImg.add(lblImg = new JLabel(), BorderLayout.CENTER);// adicionar
 																			// icone
 																			// inicial
@@ -145,7 +152,7 @@ public class ObraForm implements ActionListener {
 		
 		ObraControl oCont = new ObraControl(cbArtista, cbCategoria, cbMaterial, cbSetor);
 
-		 btnPesquisarImagem.addActionListener(this);
+		btnPesquisarImagem.addActionListener(this);
 		// btnExcluirImagem.addActionListener(this);
 		// btnNovoArtista.addActionListener(this);
 		// btnNovaCategoria.addActionListener(this);
@@ -154,6 +161,7 @@ public class ObraForm implements ActionListener {
 		btnGravar.addActionListener(this);
 		btnAtualizar.addActionListener(this);
 		btnExcluir.addActionListener(this);
+		cbArtista.addActionListener(this);
 
 	}
 
@@ -164,15 +172,15 @@ public class ObraForm implements ActionListener {
 		
 		if ("Gravar".equals(cmd)) {
 			
-			oCont.adicionar(formToAcervo());
+			oCont.adicionar(formToObra());
 			
 		} else if ("Atualizar".equals(cmd)) {
 			
-			oCont.atualizar(formToAcervo());
+			oCont.atualizar(formToObra());
 			
 		} else if ("Excluir".equals(cmd)) { 
 			
-			oCont.excluir(formToAcervo());
+			oCont.excluir(formToObra());
 			
 		} else if ("Novo Setor".equals(cmd)) {
 
@@ -203,28 +211,33 @@ public class ObraForm implements ActionListener {
 		
 	}
 
-	public void acervoToForm(Obra o) {
-		txtId.setText(Integer.toString(o.getId()));
+	public void obraToForm(Obra o) {
+		MaterialControl mCont = new MaterialControl();
+		CategoriaControl cCont = new CategoriaControl();
+		txtId.setText(Long.toString(o.getId()));
 		txtNome.setText(o.getNomeObra());
 		txtAno.setText(sdf.format(o.getDtComposicao()));
 		txtDescricao.setText(o.getDescricao());
 		txtValor.setText(Float.toString(o.getValor()));
-		// TODO chama metodos pesquisar pelo id e retorna para combos
+//		TODO cbArtista.setSelectedItem(o.getIdArtista());
+		cbMaterial.setSelectedItem(mCont.pesquisarSelecionado(o.getIdMaterial()));
+		cbStatus.setSelectedItem(o.getStatus()); //Esta linha pode repetir itens na Combo
+		cbCategoria.setSelectedItem(cCont.pesquisarSelecionado(o.getIdCategoria()));
+	
 	}
 
-	public Obra formToAcervo() {
+	public Obra formToObra() {
 		CategoriaControl cCont = new CategoriaControl();
 		SetorControl sCont = new SetorControl();
 		Obra o = new Obra();
 
 		Long idCategoria = cCont.pesquisar(cbCategoria.getSelectedItem().toString()).getId();
 		Long idSetor = sCont.pesquisar(cbSetor.getSelectedItem().toString()).get(0).getId();
-		 o.setId(Integer.parseInt(txtId.getText()));
-		 o.setIdArtista(Integer.parseInt(txtId.getText()));
-		 o.setIdCategoria(Integer.parseInt(idCategoria.toString()));
-		 o.setIdSetor(Integer.parseInt(idSetor.toString()));
+		 o.setId(Long.parseLong(txtId.getText()));
+		 o.setIdArtista(Long.parseLong(txtId.getText()));
+		 o.setIdCategoria(Long.parseLong(idCategoria.toString()));
+		 o.setIdSetor(Long.parseLong(idSetor.toString()));
          //		TODO  o.setIdMaterial(idMaterial); 
-		 o.setIdMaterial(0);
 		 o.setNomeObra(txtNome.getText());
 		 o.setValor(Float.parseFloat(txtValor.getText()));
 		 o.setDescricao(txtDescricao.getText());

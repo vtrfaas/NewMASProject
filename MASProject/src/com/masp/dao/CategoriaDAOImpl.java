@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.masp.entity.Categoria;
-import com.masp.entity.Setor;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
 
@@ -47,6 +46,24 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		DBUtil.getInstancia().closeConnection();	
 		return c;
 	}
+	
+	@Override
+	public List<String> pesquisarTudo() {
+		List<String> categorias = new ArrayList<String>();
+		Connection con = DBUtil.getInstancia().openConnection();
+		String sql = "SELECT nome FROM categoria";
+		try {
+			PreparedStatement st = con.prepareStatement( sql );
+			ResultSet rs = st.executeQuery();
+			while ( rs.next() )  { 
+				categorias.add(rs.getString("nome"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();	
+		return categorias;
+	}
 
 	@Override
 	public void remover(Long numero) {
@@ -80,4 +97,6 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 		}
 		DBUtil.getInstancia().closeConnection();
 	}
+
+	
 }

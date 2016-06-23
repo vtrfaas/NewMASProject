@@ -52,6 +52,25 @@ public class SetorDAOImpl implements SetorDAO{
 	}
 
 	@Override
+	public List<String> pesquisarTudo() {
+		List<String> setores = new ArrayList<String>();
+		Connection con = DBUtil.getInstancia().openConnection();
+		String sql = "SELECT nome FROM setor";
+		try {
+			PreparedStatement st = con.prepareStatement( sql );
+			ResultSet rs = st.executeQuery();
+			while ( rs.next() )  { 
+				setores.add(rs.getString("nome"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();	
+		return setores;
+	}
+	
+	
+	@Override
 	public void atualizar(Setor oldS, Setor newS) {
 		Connection con = DBUtil.getInstancia().openConnection();
 		String sql = "UPDATE categoria SET (?, ?, ?) WHERE " +
@@ -82,4 +101,6 @@ public class SetorDAOImpl implements SetorDAO{
 		}
 		DBUtil.getInstancia().closeConnection();
 	}
+
+	
 }

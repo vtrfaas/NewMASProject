@@ -3,11 +3,11 @@ package com.masp.entity;
 import java.util.Date;
 
 public class Obra {
-	private int id;
-	private int idArtista;
-	private int idCategoria;
-	private int idMaterial;
-	private int idSetor;
+	private Long id;
+	private Long idArtista;
+	private Long idCategoria;
+	private Long idMaterial;
+	private Long idSetor;
 	private String nomeObra;
 	private String descricao;
 	private String caminhoImagem;
@@ -17,11 +17,11 @@ public class Obra {
 	private boolean proprietario;
 	
 
-	public int getIdSetor() {
+	public Long getIdSetor() {
 		return idSetor;
 	}
 
-	public void setIdSetor(int idSetor) {
+	public void setIdSetor(Long idSetor) {
 		this.idSetor = idSetor;
 	}
 
@@ -41,35 +41,35 @@ public class Obra {
 		this.proprietario = proprietario;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getIdArtista() {
+	public Long getIdArtista() {
 		return idArtista;
 	}
 
-	public void setIdArtista(int idArtista) {
+	public void setIdArtista(Long idArtista) {
 		this.idArtista = idArtista;
 	}
 
-	public int getIdCategoria() {
+	public Long getIdCategoria() {
 		return idCategoria;
 	}
 
-	public void setIdCategoria(int idCategoria) {
+	public void setIdCategoria(Long idCategoria) {
 		this.idCategoria = idCategoria;
 	}
 
-	public int getIdMaterial() {
+	public Long getIdMaterial() {
 		return idMaterial;
 	}
 
-	public void setIdMaterial(int idMaterial) {
+	public void setIdMaterial(Long idMaterial) {
 		this.idMaterial = idMaterial;
 	}
 
