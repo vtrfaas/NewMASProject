@@ -60,14 +60,17 @@ public class MaterialDAOImpl implements MaterialDAO {
 	}
 
 	@Override
-	public List<String> pesquisarTudo() {
-		List<String> materiais = new ArrayList<String>();
+	public List<Material> pesquisarTudo() {
+		List<Material> materiais = new ArrayList<Material>();
 		String sql = "SELECT nome FROM material";
 		try {
 			PreparedStatement ps = c.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				materiais.add(rs.getString("nome"));
+				Material m = new Material();
+				m.setId( rs.getLong("id") );
+				m.setNome( rs.getString("nome") );
+				materiais.add( m );
 			}
 			ps.close();
 			rs.close();

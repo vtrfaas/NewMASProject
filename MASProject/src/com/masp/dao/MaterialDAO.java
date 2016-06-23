@@ -10,7 +10,7 @@ public interface MaterialDAO {
 
 	public List<Material> pesquisar(Long id);
 	
-	public List<String> pesquisarTudo();
+	public List<Material> pesquisarTudo();
 
 	public void remover(Material m);
 

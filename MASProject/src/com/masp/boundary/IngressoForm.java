@@ -76,7 +76,7 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 		
 		janela.setSize(600, 400);
 		janela.setVisible(true);
-		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		janela.setLocationRelativeTo(null);
 		
 	}

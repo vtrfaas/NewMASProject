@@ -33,11 +33,11 @@ public class ObraForm implements ActionListener {
 	private JTextField txtDescricao = new JTextField();
 	private JTextField txtValor = new JTextField();
 
-	private JComboBox<String> cbMaterial = new JComboBox<>();
-	private JComboBox<String> cbCategoria = new JComboBox<>();
-	private JComboBox<String> cbSetor = new JComboBox<>();
-	private JComboBox<String> cbStatus = new JComboBox<>();
-	private JComboBox<String> cbArtista = new JComboBox<>();
+	private JComboBox<String> cbMaterial = new JComboBox<String>();
+	private JComboBox<String> cbCategoria = new JComboBox<String>();
+	private JComboBox<String> cbSetor = new JComboBox<String>();
+	private JComboBox<String> cbStatus = new JComboBox<String>();
+	private JComboBox<String> cbArtista = new JComboBox<String>();
 
 	private JButton btnPesquisarImagem = new JButton("+");
 	private JButton btnExcluirImagem = new JButton("X");
@@ -149,15 +149,16 @@ public class ObraForm implements ActionListener {
 
 		janela.setSize(570, 350);
 		janela.setVisible(true);
+		janela.setLocationRelativeTo(null);
 		
 		ObraControl oCont = new ObraControl(cbArtista, cbCategoria, cbMaterial, cbSetor);
 
 		btnPesquisarImagem.addActionListener(this);
-		// btnExcluirImagem.addActionListener(this);
-		// btnNovoArtista.addActionListener(this);
-		// btnNovaCategoria.addActionListener(this);
-		// btnNovoMaterial.addActionListener(this);
-		// btnNovoSetor.addActionListener(this);
+		btnExcluirImagem.addActionListener(this);
+		btnNovoArtista.addActionListener(this);
+		btnNovaCategoria.addActionListener(this);
+		btnNovoMaterial.addActionListener(this);
+		btnNovoSetor.addActionListener(this);
 		btnGravar.addActionListener(this);
 		btnAtualizar.addActionListener(this);
 		btnExcluir.addActionListener(this);
@@ -183,12 +184,16 @@ public class ObraForm implements ActionListener {
 			oCont.excluir(formToObra());
 			
 		} else if ("Novo Setor".equals(cmd)) {
+			SetorForm sForm = new SetorForm();
 
 		} else if ("Nova Categoria".equals(cmd)) {
+			CategoriaForm cForm = new CategoriaForm();
 
 		} else if ("Novo Material".equals(cmd)) {
+			MaterialForm mForm = new MaterialForm();
 
 		} else if ("Novo Artista".equals(cmd)) {
+			ArtistaForm aForm = new ArtistaForm();
 
 		} else if (e.getSource().equals(btnPesquisarImagem)) {
 			

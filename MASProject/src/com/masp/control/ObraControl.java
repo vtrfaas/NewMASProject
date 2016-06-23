@@ -9,13 +9,20 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.masp.dao.ArtistaDAO;
 import com.masp.dao.ArtistaDAOImpl;
+import com.masp.dao.CategoriaDAO;
 import com.masp.dao.CategoriaDAOImpl;
+import com.masp.dao.MaterialDAO;
 import com.masp.dao.MaterialDAOImpl;
 import com.masp.dao.ObraDAOImpl;
+import com.masp.dao.SetorDAO;
 import com.masp.dao.SetorDAOImpl;
 import com.masp.entity.Artista;
+import com.masp.entity.Categoria;
+import com.masp.entity.Material;
 import com.masp.entity.Obra;
+import com.masp.entity.Setor;
 
 public class ObraControl {
 	
@@ -36,6 +43,9 @@ public class ObraControl {
 		this.cbCategoria = cbCategoria;
 		this.cbMaterial = cbMaterial;
 		this.cbSetor = cbSetor;
+		preencherCategoria();
+		preencherMaterial();
+		preencherSetor();
 	}
 	
 	
@@ -56,11 +66,9 @@ public class ObraControl {
 	public void excluir(Obra obra) {
 		oDAO.remover(obra);
 	}
-
-	
 	
 	public void preencherArtista(String nome){
-		ArtistaDAOImpl aDAO = new ArtistaDAOImpl();
+		ArtistaDAO aDAO = new ArtistaDAOImpl();
 		List<Artista> artistas = new ArrayList<Artista>();
 		
 		artistas = aDAO.pesquisar(nome);
@@ -72,35 +80,35 @@ public class ObraControl {
 	}
 	
 	public void preencherCategoria(){
-		CategoriaDAOImpl cDAO = new CategoriaDAOImpl();
-		List<String> categorias = new ArrayList<String>();
+		CategoriaDAO cDAO = new CategoriaDAOImpl();
+		List<Categoria> categorias = new ArrayList<Categoria>();
 		
 		categorias = cDAO.pesquisarTudo();
 		
 		for (int i = 0; i < categorias.size(); i++) {
-			cbCategoria.addItem(categorias.get(i));
+			cbCategoria.addItem(categorias.get(i).getNome());
 		}
 	}
 	
 	public void preencherMaterial(){
-		MaterialDAOImpl mDAO = new MaterialDAOImpl();
-		List<String> materiais = new ArrayList<String>();
+		MaterialDAO mDAO = new MaterialDAOImpl();
+		List<Material> materiais = new ArrayList<Material>();
 		
 		materiais = mDAO.pesquisarTudo();
 		
 		for (int i = 0; i < materiais.size(); i++) {
-			cbMaterial.addItem(materiais.get(i));
+			cbMaterial.addItem(materiais.get(i).getNome());
 		}
 	}
 	
 	public void preencherSetor(){
-		SetorDAOImpl sDAO = new SetorDAOImpl();
-		List<String> setores = new ArrayList<String>();
+		SetorDAO sDAO = new SetorDAOImpl();
+		List<Setor> setores = new ArrayList<Setor>();
 		
 		setores = sDAO.pesquisarTudo();
 		
 		for (int i = 0; i < setores.size(); i++) {
-			cbSetor.addItem(setores.get(i));
+			cbSetor.addItem(setores.get(i).getNome());
 		}
 	}
 	

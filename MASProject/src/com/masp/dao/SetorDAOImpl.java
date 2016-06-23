@@ -52,15 +52,18 @@ public class SetorDAOImpl implements SetorDAO{
 	}
 
 	@Override
-	public List<String> pesquisarTudo() {
-		List<String> setores = new ArrayList<String>();
+	public List<Setor> pesquisarTudo() {
+		List<Setor> setores = new ArrayList<Setor>();
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "SELECT nome FROM setor";
+		String sql = "SELECT id, nome FROM setor";
 		try {
 			PreparedStatement st = con.prepareStatement( sql );
 			ResultSet rs = st.executeQuery();
-			while ( rs.next() )  { 
-				setores.add(rs.getString("nome"));
+			while ( rs.next() )  {
+				Setor s = new Setor();
+				s.setId( rs.getLong("id") );
+				s.setNome( rs.getString("nome") );
+				setores.add(s);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

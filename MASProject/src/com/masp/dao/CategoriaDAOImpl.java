@@ -48,15 +48,18 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 	
 	@Override
-	public List<String> pesquisarTudo() {
-		List<String> categorias = new ArrayList<String>();
+	public List<Categoria> pesquisarTudo() {
+		List<Categoria> categorias = new ArrayList<Categoria>();
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "SELECT nome FROM categoria";
+		String sql = "SELECT id, nome FROM categoria";
 		try {
 			PreparedStatement st = con.prepareStatement( sql );
 			ResultSet rs = st.executeQuery();
 			while ( rs.next() )  { 
-				categorias.add(rs.getString("nome"));
+				Categoria c = new Categoria();
+				c.setId( rs.getLong("id") );
+				c.setNome( rs.getString("nome"));
+				categorias.add( c );
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

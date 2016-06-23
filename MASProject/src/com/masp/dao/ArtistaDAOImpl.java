@@ -47,7 +47,7 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 			while( rs.next() ) {
 				a.setId(  rs.getLong("id")  );
 				a.setNome(  rs.getString("nome")  );
-				a.setLocalNasc(  rs.getString("descricao")  );
+				a.setLocalNasc(  rs.getString("localNasc")  );
 				a.setAnoMorte( rs.getDate("anoNasc") );
 				a.setAnoMorte(  rs.getDate("anoMorte") );
 				lista.add( a );
