@@ -1,6 +1,6 @@
 package com.masp.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Obra {
 	private int id;

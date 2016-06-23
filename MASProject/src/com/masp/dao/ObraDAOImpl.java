@@ -30,7 +30,8 @@ public class ObraDAOImpl implements ObraDAO {
 			ps.setInt(4, o.getIdMaterial());
 			ps.setString(5, o.getDescricao());
 			ps.setString(6, o.getCaminhoImagem());
-			ps.setDate(7, o.getDtComposicao());
+			java.sql.Date d = new java.sql.Date( o.getDtComposicao().getTime() );
+			ps.setDate(7, d);
 			ps.setBoolean(8, o.isProprietario());
 			ps.setString(9, o.getStatus());
 			ps.setInt(10, o.getIdSetor());
@@ -103,7 +104,8 @@ public class ObraDAOImpl implements ObraDAO {
 			ps.setInt(4, o.getIdMaterial());
 			ps.setString(5, o.getDescricao());
 			ps.setString(6, o.getCaminhoImagem());
-			ps.setDate(7, o.getDtComposicao());
+			java.sql.Date d = new java.sql.Date( o.getDtComposicao().getTime() );
+			ps.setDate(7, d);
 			ps.setBoolean(8, o.isProprietario());
 			ps.setString(9, o.getStatus());
 			ps.setInt(10, o.getIdSetor());

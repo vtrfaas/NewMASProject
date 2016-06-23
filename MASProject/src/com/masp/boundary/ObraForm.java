@@ -2,17 +2,24 @@ package com.masp.boundary;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import com.masp.control.CategoriaControl;
+import com.masp.control.ObraControl;
+import com.masp.control.SetorControl;
 import com.masp.entity.Obra;
 
 public class ObraForm implements ActionListener {
@@ -31,26 +38,45 @@ public class ObraForm implements ActionListener {
 	private JComboBox<String> cbStatus = new JComboBox<>();
 	private JComboBox<String> cbArtista = new JComboBox<>();
 
-	private JButton btnPesquisarImagem = new JButton("LUPA");
-	private JButton btnExcluirImagem = new JButton("XIS");
-	private JButton btnNovoArtista = new JButton("Novo");
-	private JButton btnNovaCategoria = new JButton("Novo");
-	private JButton btnNovoMaterial = new JButton("Novo");
-	private JButton btnNovoSetor = new JButton("Novo");
+	private JButton btnPesquisarImagem = new JButton("+");
+	private JButton btnExcluirImagem = new JButton("X");
+	private JButton btnNovoArtista = new JButton("Novo Artista");
+	private JButton btnNovaCategoria = new JButton("Nova Categoria");
+	private JButton btnNovoMaterial = new JButton("Novo Material");
+	private JButton btnNovoSetor = new JButton("Novo Setor");
 	private JButton btnGravar = new JButton("Gravar");
 	private JButton btnAtualizar = new JButton("Atualizar");
 	private JButton btnExcluir = new JButton("Excluir");
 
+	private JTabbedPane tabDono = new JTabbedPane(JTabbedPane.TOP);
+
+	private JPanel panPrincipal;
+	private JPanel panForm;
+	private JPanel panImg;
+	private JPanel panBtn;
+	private JPanel panBtnImg;
+	// private JPanel panProp;
+	// private JPanel panEmpr;
+	// private JPanel panTab;
+
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 	private JLabel lblImg;
+	
+	private static String caminhoImagem;
 
 	public ObraForm() {
-		JPanel panPrincipal = new JPanel(new BorderLayout());
-		JPanel panForm = new JPanel(new GridLayout(10, 3));
-		JPanel panImg = new JPanel(new BorderLayout());
-		JPanel panBtn = new JPanel(new GridLayout(1, 3));
-		JPanel panBtnImg = new JPanel(new GridLayout(1, 2));
+		panPrincipal = new JPanel(new BorderLayout());
+		panForm = new JPanel(new GridLayout(10, 3));
+		panImg = new JPanel(new BorderLayout());
+		panBtn = new JPanel(new GridLayout(1, 3));
+		panBtnImg = new JPanel(new GridLayout(1, 2));
+
+		// tabDono.addTab("Proprietário", null, panProp, null);
+		// tabDono.addTab("Empréstimo", null, panEmpr, null);
+		// panTab.add(tabDono, BorderLayout.CENTER);
+		// panTab.add(panBtn, BorderLayout.SOUTH);
+
 		janela = new JFrame("ACERVO");
 
 		janela.setContentPane(panPrincipal);
@@ -60,6 +86,7 @@ public class ObraForm implements ActionListener {
 		panPrincipal.add(panForm, BorderLayout.WEST);
 		panPrincipal.add(panImg, BorderLayout.EAST);
 		panPrincipal.add(panBtn, BorderLayout.SOUTH);
+		// panPrincipal.add(panTab, BorderLayout.SOUTH);
 
 		panForm.add(new JLabel("ID: "));
 		panForm.add(txtId);
@@ -101,7 +128,7 @@ public class ObraForm implements ActionListener {
 		panForm.add(txtValor);
 		panForm.add(new JLabel());
 
-		panImg.add(lblImg = new JLabel("IBAGEM AQUI"), BorderLayout.CENTER);// adicionar
+		panImg.add(lblImg = new JLabel(), BorderLayout.CENTER);// adicionar
 																			// icone
 																			// inicial
 																			// aqui
@@ -115,8 +142,10 @@ public class ObraForm implements ActionListener {
 
 		janela.setSize(570, 350);
 		janela.setVisible(true);
+		
+		ObraControl oCont = new ObraControl(cbArtista, cbCategoria, cbMaterial, cbSetor);
 
-		// btnPesquisarImagem.addActionListener(this);
+		 btnPesquisarImagem.addActionListener(this);
 		// btnExcluirImagem.addActionListener(this);
 		// btnNovoArtista.addActionListener(this);
 		// btnNovaCategoria.addActionListener(this);
@@ -131,17 +160,50 @@ public class ObraForm implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
+		ObraControl oCont = new ObraControl();
+		
 		if ("Gravar".equals(cmd)) {
-
+			
+			oCont.adicionar(formToAcervo());
+			
 		} else if ("Atualizar".equals(cmd)) {
+			
+			oCont.atualizar(formToAcervo());
+			
+		} else if ("Excluir".equals(cmd)) { 
+			
+			oCont.excluir(formToAcervo());
+			
+		} else if ("Novo Setor".equals(cmd)) {
 
-		} else if ("Excluir".equals(cmd)) {
+		} else if ("Nova Categoria".equals(cmd)) {
 
+		} else if ("Novo Material".equals(cmd)) {
+
+		} else if ("Novo Artista".equals(cmd)) {
+
+		} else if (e.getSource().equals(btnPesquisarImagem)) {
+			
+			insereImagem();
+			
+
+		} else if (e.getSource().equals(btnExcluirImagem)) {
+
+		}else if(e.getSource().equals(cbArtista)){
+			oCont.preencherArtista(cbArtista.getEditor().getItem().toString());
 		}
 	}
 
+	private void insereImagem() {
+		ObraControl oCont = new ObraControl();
+		caminhoImagem = oCont.adicionarImagem();
+		ImageIcon img = new ImageIcon(caminhoImagem);
+		Image newImg = img.getImage().getScaledInstance(lblImg.getWidth(), lblImg.getHeight(), Image.SCALE_DEFAULT);
+		lblImg.setIcon(new ImageIcon(newImg));
+		
+	}
+
 	public void acervoToForm(Obra o) {
-		// txtAnoNasc.setText( sdf.format( a.getAnoNasc() ) );
 		txtId.setText(Integer.toString(o.getId()));
 		txtNome.setText(o.getNomeObra());
 		txtAno.setText(sdf.format(o.getDtComposicao()));
@@ -151,18 +213,32 @@ public class ObraForm implements ActionListener {
 	}
 
 	public Obra formToAcervo() {
-		// a.setAnoNasc( sdf.parse( txtAnoNasc.getText() ) );
+		CategoriaControl cCont = new CategoriaControl();
+		SetorControl sCont = new SetorControl();
 		Obra o = new Obra();
-//		o.setIdArtista(idArtista);
-//		o.setIdCategoria(idCategoria);
-//		o.setIdMaterial(idMaterial);
-//		o.setNomeObra(nomeObra);
-//		o.setValor(valor);
-//		o.setDtComposicao(dtComposicao);
-//		o.setDescricao(descricao);
-//		o.setCaminhoImagem(caminhoImagem);
-//		o.setId(id);
-		return null;
+
+		Long idCategoria = cCont.pesquisar(cbCategoria.getSelectedItem().toString()).getId();
+		Long idSetor = sCont.pesquisar(cbSetor.getSelectedItem().toString()).get(0).getId();
+		 o.setId(Integer.parseInt(txtId.getText()));
+		 o.setIdArtista(Integer.parseInt(txtId.getText()));
+		 o.setIdCategoria(Integer.parseInt(idCategoria.toString()));
+		 o.setIdSetor(Integer.parseInt(idSetor.toString()));
+         //		TODO  o.setIdMaterial(idMaterial); 
+		 o.setIdMaterial(0);
+		 o.setNomeObra(txtNome.getText());
+		 o.setValor(Float.parseFloat(txtValor.getText()));
+		 o.setDescricao(txtDescricao.getText());
+		 o.setCaminhoImagem(caminhoImagem);
+		 
+		 try {
+			o.setDtComposicao(sdf.parse(txtAno.getText()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		 o.setStatus(cbStatus.getSelectedItem().toString());
+		 //TODO Radio button no item abaixo
+		 o.setProprietario(true);
+		return o;
 	}
 
 	public static void main(String[] args) {
