@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,7 +13,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.masp.control.CategoriaControl;
-import com.masp.entity.Artista;
 import com.masp.entity.Categoria;
 
 public class CategoriaForm implements ActionListener {
@@ -40,7 +38,7 @@ public class CategoriaForm implements ActionListener {
 		panForm.add( new JLabel("Nome: ") );
 		panForm.add( txtNome );
 		panForm.add( btnPesquisar );
-		panForm.add( new JLabel("Descri��o: ") );
+		panForm.add( new JLabel("Descrição: ") );
 		panForm.add(txtADescricao);
 		panForm.add( new JLabel() );
 		panForm.add( btnLimpar );

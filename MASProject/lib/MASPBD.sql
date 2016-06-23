@@ -10,6 +10,9 @@ CREATE TABLE artista (
 	anoMorte date
 );
 
+INSERT INTO artista VALUES (1, 'Vincent Van Gogh', 'Zundert, Netherlands', '1853/03/30', '1890/07/29');
+INSERT INTO artista VALUES (2, 'Leonardo di ser Piero da Vinci', 'Vinci, Republic of Florence', '1452/04/15', '1519/05/02');
+
 CREATE TABLE categoria (
 	id int primary key auto_increment,
 	nome varchar(50) not null,

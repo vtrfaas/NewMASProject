@@ -1,5 +1,9 @@
 package com.masp.boundary;
 
-public class ExposicaoForm {
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
+public class ExposicaoForm {
+	private JFrame janela = new JFrame();
+	private JTextField txtId = new JTextField();
 }

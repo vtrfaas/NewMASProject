@@ -41,7 +41,7 @@ public class ObraForm implements ActionListener {
 	private JComboBox<String> cbArtista = new JComboBox<String>();
 
 	private JButton btnPesquisarImagem = new JButton("+");
-	private JButton btnExcluirImagem = new JButton("X");
+	private JButton btnExcluirImagem = new JButton("x");
 	private JButton btnNovoArtista = new JButton("Novo Artista");
 	private JButton btnNovaCategoria = new JButton("Nova Categoria");
 	private JButton btnNovoMaterial = new JButton("Novo Material");
