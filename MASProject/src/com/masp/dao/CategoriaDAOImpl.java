@@ -42,8 +42,6 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 				c.setNome(rs.getString("nome"));
 				c.setDescricao(rs.getString("descricao"));
 			}
-			st.close();
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -65,8 +63,6 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 			c.setNome(rs.getString("nome"));
 			c.setDescricao(rs.getString("descricao"));
 			}
-			st.close();
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -88,8 +84,6 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 				c.setNome(rs.getString("nome"));
 				categorias.add(c);
 			}
-			st.close();
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -98,33 +92,30 @@ public class CategoriaDAOImpl implements CategoriaDAO {
 	}
 
 	@Override
-	public void remover(Long numero) {
+	public void remover(String nome) {
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "DELETE FROM categoria WHERE id = ? ";
+		String sql = "DELETE FROM categoria WHERE nome = ? ";
 		try {
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setLong(1, numero);
+			st.setString(1, nome);
 			st.executeUpdate();
-			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		DBUtil.getInstancia().closeConnection();
 	}
 
-	// Testar
 	@Override
-	public void atualizar(Categoria oldC, Categoria newC) {
+	public void atualizar(Categoria newC) {
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "UPDATE categoria SET (?, ?, ?) WHERE " + "id = ?";
+		String sql = "UPDATE categoria SET nome = ?, descricao = ? WHERE " + 
+					"id = ?";
 		try {
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setLong(1, newC.getId());
-			st.setString(2, newC.getNome());
-			st.setString(3, newC.getDescricao());
-			st.setLong(4, oldC.getId());
+			st.setString(1, newC.getNome());
+			st.setString(2, newC.getDescricao());
+			st.setLong(3, newC.getId());
 			st.executeUpdate();
-			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

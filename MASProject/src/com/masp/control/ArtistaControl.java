@@ -21,8 +21,8 @@ public class ArtistaControl {
 		aDAO.remover(nome);
 	}
 	
-	public void atualizar(Artista oldA, Artista newA){
-		aDAO.atualizar(oldA, newA);
+	public void atualizar(Artista newA){
+		aDAO.atualizar(newA);
 	}
 	
 	public Artista pesquisarPorId(Long id){

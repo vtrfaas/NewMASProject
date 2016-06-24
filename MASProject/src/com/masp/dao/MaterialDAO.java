@@ -14,7 +14,7 @@ public interface MaterialDAO {
 	
 	public List<Material> pesquisarTudo();
 
-	public void remover(Material m);
+	public void remover(String nome);
 
-	public void atualizar(Material m);
+	public void atualizar(Material newM);
 }

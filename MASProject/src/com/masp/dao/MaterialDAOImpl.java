@@ -20,7 +20,7 @@ public class MaterialDAOImpl implements MaterialDAO {
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, m.getNome());
-			ps.setLong(2, m.getId());
+			ps.setLong(2, m.getCategoria());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -35,16 +35,14 @@ public class MaterialDAOImpl implements MaterialDAO {
 		String sql = "SELECT * FROM material WHERE nome like ?";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, nome);
+			ps.setString(1, "%" + nome + "%");
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
 				Material m = new Material();
-				Categoria c = new Categoria();
 				m.setId(rs.getLong("id"));
 				m.setNome(rs.getString("nome"));
-				c.setId(rs.getLong("id_categoria"));
-				m.setCategoria(c.getId());
+				m.setCategoria(rs.getLong("id_categoria"));
 				materiais.add(m);
 			}
 		
@@ -111,38 +109,31 @@ public class MaterialDAOImpl implements MaterialDAO {
 	}
 
 	@Override
-	public void remover(Material m) {
+	public void remover(String nome) {
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "DELETE FROM material WHERE id = ?";
+		String sql = "DELETE FROM material WHERE nome = ?";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, m.getId());
+			ps.setString(1, nome);
 			ps.executeUpdate();
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void atualizar(Material m) {
+	public void atualizar(Material newM) {
 		Connection con = DBUtil.getInstancia().openConnection();
 		String sql = "UPDATE material SET nome = ?, id_categoria = ? WHERE id = ?";
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setString(1, m.getNome());
-			Categoria c = new Categoria();
-			long id = m.getCategoria();
-			c.setId(id);
-			ps.setLong(2, c.getId());
-			ps.setLong(3, m.getId());
+			ps.setString(1, newM.getNome());
+			ps.setLong( 2, newM.getCategoria() );
+			ps.setLong( 3, newM.getId() );
 			ps.executeUpdate();
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		DBUtil.getInstancia().closeConnection();
 	}
-
-	
 }

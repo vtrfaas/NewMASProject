@@ -25,12 +25,12 @@ public class MaterialControl {
 		return mDAO.pesquisarTudo();
 	}
 
-	public void remover(Material m) {
-		mDAO.remover(m);
+	public void remover(String nome) {
+		mDAO.remover(nome);
 	}
 
-	public void atualizar(Material m) {
-		mDAO.atualizar(m);
+	public void atualizar(Material newM) {
+		mDAO.atualizar(newM);
 	}
 
 }

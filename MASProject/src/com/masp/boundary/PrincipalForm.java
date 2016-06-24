@@ -43,9 +43,9 @@ public class PrincipalForm implements ActionListener {
 		panForm.add( new JLabel() );
 		panForm.add( new JLabel() );
 		panForm.add( new JLabel() );
-		panForm.add( new JLabel() );
 		panForm.add(btnExposicao);
 		panForm.add( new JLabel() );
+		panForm.add(btnMaterial);
 		
 		btnIngresso.addActionListener(this);
 		btnAcervo.addActionListener(this);
@@ -54,6 +54,7 @@ public class PrincipalForm implements ActionListener {
 		btnSetor.addActionListener(this);
 		btnCategoria.addActionListener(this);
 		btnExposicao.addActionListener(this);
+		btnMaterial.addActionListener(this);
 		
 //		int inset = 50;
 //        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -83,6 +84,8 @@ public class PrincipalForm implements ActionListener {
 			EmprestimoForm eForm = new EmprestimoForm();
 		} else if("Categoria".equals( cmd )){
 			CategoriaForm cForm = new CategoriaForm();
+		} else if("Material".equals( cmd )){
+			MaterialForm mForm = new MaterialForm();
 		}
 	}
 	

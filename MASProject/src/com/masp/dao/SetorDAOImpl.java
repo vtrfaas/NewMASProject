@@ -22,7 +22,6 @@ public class SetorDAOImpl implements SetorDAO{
 			st.setString( 2, s.getNome() );
 			st.setString( 3, s.getAndar() );
 			st.executeUpdate();
-			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -45,8 +44,6 @@ public class SetorDAOImpl implements SetorDAO{
 				s.setAndar(  rs.getString("andar")  );
 				lista.add( s );
 			}
-			st.close();
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -68,8 +65,6 @@ public class SetorDAOImpl implements SetorDAO{
 				s.setNome(  rs.getString("nome")  );
 				s.setAndar(  rs.getString("andar")  );
 			}
-			st.close();
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,8 +86,6 @@ public class SetorDAOImpl implements SetorDAO{
 				s.setNome( rs.getString("nome") );
 				setores.add(s);
 			}
-			st.close();
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -102,18 +95,16 @@ public class SetorDAOImpl implements SetorDAO{
 	
 	
 	@Override
-	public void atualizar(Setor oldS, Setor newS) {
+	public void atualizar(Setor newS) {
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "UPDATE categoria SET (?, ?, ?) WHERE " +
+		String sql = "UPDATE setor SET nome = ?  andar = ? WHERE " +
 					 "id = ?";
 		try {
 			PreparedStatement st = con.prepareStatement( sql );
-			st.setLong( 1, newS.getId() );
-			st.setString( 2, newS.getNome() );
-			st.setString( 3, newS.getAndar() );
-			st.setLong(4, oldS.getId());
+			st.setString( 1, newS.getNome() );
+			st.setString( 2, newS.getAndar() );
+			st.setLong( 3, newS.getId() );
 			st.executeUpdate();
-			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -123,12 +114,11 @@ public class SetorDAOImpl implements SetorDAO{
 	@Override
 	public void excluir(String numero) {
 		Connection con = DBUtil.getInstancia().openConnection();
-		String sql = "DELETE FROM categoria WHERE id = ? ";
+		String sql = "DELETE FROM setor WHERE id = ? ";
 		try {
 			PreparedStatement st = con.prepareStatement( sql );
 			st.setLong(1, Long.parseLong(numero) );
 			st.executeUpdate();
-			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

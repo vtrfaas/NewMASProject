@@ -46,11 +46,12 @@ public class ObraControl {
 		preencherCategoria();
 		preencherMaterial();
 		preencherSetor();
+		preencherArtista();
 	}
 	
-	
-	
-	
+	public ObraControl(){
+		
+	}
 
 	public void adicionar(Obra obra) {
 		oDAO.adicionar(obra);
@@ -62,8 +63,8 @@ public class ObraControl {
 	}
 	
 
-	public void excluir(Obra obra) {
-		oDAO.remover(obra);
+	public void excluir(String nome) {
+		oDAO.remover(nome);
 	}
 	
 
@@ -71,11 +72,11 @@ public class ObraControl {
 		return oDAO.pesquisar(obra).get(0);
 	}
 	
-	public void preencherArtista(String nome){
+	public void preencherArtista(){
 		ArtistaDAO aDAO = new ArtistaDAOImpl();
 		List<Artista> artistas = new ArrayList<Artista>();
 		
-		artistas = aDAO.pesquisarPorNome(nome);
+		artistas = aDAO.pesquisarTudo();
 		
 		for (int i = 0; i < artistas.size(); i++) {
 			cbArtista.addItem(artistas.get(i).getNome());
@@ -133,13 +134,7 @@ public class ObraControl {
 		
 		if (retorno == JFileChooser.APPROVE_OPTION) {
 			caminhoArquivo = choose.getSelectedFile().getAbsolutePath();
-			
 		}
-		return caminhoArquivo;
-		
+		return caminhoArquivo;	
 	}
-
-
-
-	
 }

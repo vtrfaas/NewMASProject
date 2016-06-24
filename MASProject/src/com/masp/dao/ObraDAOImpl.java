@@ -66,8 +66,6 @@ public class ObraDAOImpl implements ObraDAO {
 				o.setValor(rs.getFloat("preco"));
 				obras.add(o);
 			}
-			ps.close();
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -76,14 +74,13 @@ public class ObraDAOImpl implements ObraDAO {
 	}
 
 	@Override
-	public void remover(Obra o) {
-		String sql = "DELETE FROM obra WHERE id = ?";
+	public void remover(String nome) {
+		String sql = "DELETE FROM obra WHERE nome = ?";
 		Connection con = DBUtil.getInstancia().openConnection();
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setLong(1, o.getId());
+			ps.setString(1, nome);
 			ps.executeUpdate();
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -111,9 +108,7 @@ public class ObraDAOImpl implements ObraDAO {
 			ps.setLong(10, o.getIdSetor());
 			ps.setFloat(11, o.getValor());
 			ps.setLong(12, o.getId());
-
 			ps.executeUpdate();
-			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

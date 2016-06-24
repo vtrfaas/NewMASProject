@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -32,16 +33,15 @@ public class ArtistaForm implements ActionListener {
 	private JButton btnExcluir = new JButton("Excluir");
 	private ArtistaControl controle;
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	private JTable tabela;
-	
+	private static boolean isPressed = false;
 	
 	public ArtistaForm(){
-		//Adicionar uma tabela ao form
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
 		JPanel panForm = new JPanel( new GridLayout(6, 3) );
 		janela.setContentPane(panPrincipal);
 		panPrincipal.add( panForm, BorderLayout.CENTER );
 		panForm.add( new JLabel("ID: ") );
+		txtId.setEditable(false);
 		panForm.add( txtId );
 		panForm.add( new JLabel() );
 		panForm.add( new JLabel("Nome: ") );
@@ -82,7 +82,6 @@ public class ArtistaForm implements ActionListener {
 	public Artista formToArtista() { 
 		Artista a = new Artista();
 		try {
-//			a.setId( Long.parseLong( txtId.getText() ) );
 			a.setNome( txtNome.getText() );				
 			a.setLocalNasc( txtLocalNasc.getText() );
 			a.setAnoNasc( sdf.parse( txtAnoNasc.getText() ) );
@@ -100,16 +99,32 @@ public class ArtistaForm implements ActionListener {
 		String cmd = e.getActionCommand();
 		controle = new ArtistaControl();
 		if("Pesquisar".equals( cmd )){
-			controle = new ArtistaControl();
 			List<Artista> a = controle.pesquisarPorNome( txtNome.getText() );
-			artistaToForm(a.get(0));
+			if(a.size() > 0){
+				isPressed = true;
+				artistaToForm(a.get(0));
+			}
 		} else if("Limpar".equals( cmd )){
 			limparCampos();
+			isPressed = false;
 		} else if("Gravar".equals( cmd )){
-			controle = new ArtistaControl();
-			controle.adicionar( formToArtista() );
+			if(isPressed){
+				Artista newA = formToArtista();
+				newA.setId( Long.parseLong( txtId.getText() ));
+				controle.atualizar(newA);
+				isPressed = false;
+				JOptionPane.showMessageDialog(janela, "Registro Atualizado com Sucesso");
+				limparCampos();
+			} else {
+				controle.adicionar( formToArtista() );
+				JOptionPane.showMessageDialog(janela, "Registro Adicionado com Sucesso");
+				limparCampos();
+			}
 		} else if("Excluir".equals( cmd )){
-			//todo
+			if( txtNome.getText() != null | txtNome.getText() != ""){
+				controle.remover( txtNome.getText() );
+				JOptionPane.showMessageDialog(janela, "Registro Excluido com Sucesso");
+			}
 		}
 	}
 	

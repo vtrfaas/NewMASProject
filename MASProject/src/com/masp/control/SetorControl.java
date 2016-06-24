@@ -22,11 +22,11 @@ public class SetorControl {
 		
 	}
 	
-	public void remover(String numero){
-		sDAO.excluir(numero);
+	public void remover(String nome){
+		sDAO.excluir(nome);
 	}
 	
-	public void atualizar(Setor oldS, Setor newS){
-		
+	public void atualizar(Setor newS){
+		sDAO.atualizar(newS);
 	}
 }

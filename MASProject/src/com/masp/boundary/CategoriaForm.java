@@ -8,11 +8,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.masp.control.CategoriaControl;
+import com.masp.entity.Artista;
 import com.masp.entity.Categoria;
 
 public class CategoriaForm implements ActionListener {
@@ -26,6 +28,7 @@ public class CategoriaForm implements ActionListener {
 	private JButton btnPesquisar = new JButton("Pesquisar");
 	private JButton btnExcluir = new JButton("Excluir");
 	private CategoriaControl controle;
+	private static boolean isPressed = false;
 	
 	public CategoriaForm(){
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
@@ -33,6 +36,7 @@ public class CategoriaForm implements ActionListener {
 		janela.setContentPane(panPrincipal);
 		panPrincipal.add(panForm, BorderLayout.CENTER);
 		panForm.add( new JLabel("ID: ") );
+		txtId.setEditable(false);
 		panForm.add( txtId );
 		panForm.add( new JLabel() );
 		panForm.add( new JLabel("Nome: ") );
@@ -76,17 +80,34 @@ public class CategoriaForm implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
+		controle = new CategoriaControl();
 		if("Pesquisar".equals( cmd )){
 			controle = new CategoriaControl();
 			Categoria c = controle.pesquisarPorNome( txtNome.getText() );
-			categoriaToForm(c);
+			if( c != null){
+				isPressed = true;
+				categoriaToForm(c);
+			}
 		} else if("Limpar".equals( cmd )){
 			limparCampos();
 		} else if("Gravar".equals( cmd )){
-			controle = new CategoriaControl();
-			controle.adicionar( formToCategoria() );
+			if(isPressed){
+				Categoria newC = formToCategoria();
+				newC.setId( Long.parseLong( txtId.getText() ));
+				controle.atualizar(newC);
+				isPressed = false;
+				JOptionPane.showMessageDialog(janela, "Registro Atualizado com Sucesso");
+				limparCampos();
+			} else {
+				controle.adicionar( formToCategoria() );
+				JOptionPane.showMessageDialog(janela, "Registro Adicionado com Sucesso");
+				limparCampos();
+			}
 		} else if("Excluir".equals( cmd )){
-			
+			if( txtNome.getText() != null | txtNome.getText() != ""){
+				controle.remover( txtNome.getText() );
+				JOptionPane.showMessageDialog(janela, "Registro Excluido com Sucesso");
+			}
 		}
 	}
 	

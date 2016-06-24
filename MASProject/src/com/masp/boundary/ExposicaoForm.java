@@ -24,7 +24,7 @@ import com.masp.entity.Exposicao;
 import com.masp.entity.Ingresso;
 
 public class ExposicaoForm implements ActionListener, ListSelectionListener{
-	private JFrame janela = new JFrame();
+	private JFrame janela = new JFrame("EXPOSIÇÃO");
 	private JTextField txtId = new JTextField();
 	private JTextField txtTitulo = new JTextField();
 	private JTextField txtDtInicio = new JTextField();
@@ -41,7 +41,7 @@ public class ExposicaoForm implements ActionListener, ListSelectionListener{
 	public ExposicaoForm(){
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
 		JScrollPane panTable = new JScrollPane();
-		JPanel panFormulario = new JPanel( new GridLayout(5, 3) );
+		JPanel panFormulario = new JPanel( new GridLayout(6, 3) );
 		JPanel panBotoes = new JPanel();
 		
 		panFormulario.add( new JLabel("Id: ") );

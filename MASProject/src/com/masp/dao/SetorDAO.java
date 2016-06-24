@@ -9,6 +9,6 @@ public interface SetorDAO {
 	public List<Setor> pesquisarPorNome(String nomeSetor);
 	public Setor pesquisarPorId(Long id);
 	public List<Setor> pesquisarTudo();
-	public void atualizar(Setor oldS, Setor newS);
+	public void atualizar(Setor newS);
 	public void excluir(String numero);
 }

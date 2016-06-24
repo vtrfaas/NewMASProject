@@ -16,7 +16,7 @@ import com.masp.entity.Exposicao;
 import com.masp.entity.Obra;
 
 public class EmprestimoForm {
-	private JFrame janela = new JFrame("EXPOSIÇÃO");
+	private JFrame janela = new JFrame("EMPRÉSTIMO");
 	private JTextField txtId = new JTextField();
 	private JTextField txtTitulo = new JTextField();
 	private JTextField txtDtInicio = new JTextField();
@@ -65,6 +65,10 @@ public class EmprestimoForm {
 		panForm.add( new JLabel("Responsável: ") );
 		panForm.add( txtResponsavel );
 		panForm.add( new JLabel() );
+		panForm.add( btnAdicionar );
+		panForm.add( panTable, BorderLayout.CENTER );
+		panForm.add( btnGravar );
+		
 		
 		janela.setSize(600, 300);
 		janela.setVisible(true);

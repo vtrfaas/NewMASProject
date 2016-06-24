@@ -9,6 +9,6 @@ public interface CategoriaDAO {
 	public Categoria pesquisarPorNome(String nome);
 	public Categoria pesquisarPorId(Long id);
 	public List<Categoria> pesquisarTudo();
-	public void remover(Long numero);
-	public void atualizar(Categoria oldC, Categoria newC);
+	public void remover(String nome);
+	public void atualizar(Categoria newC);
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.masp.entity.Artista;
 import com.masp.entity.Categoria;
+import com.masp.entity.Material;
 
 public class ArtistaDAOImpl implements ArtistaDAO{
 
@@ -27,7 +28,6 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 			d = new java.sql.Date ( a.getAnoMorte().getTime() );
 			st.setDate(4, d );
 			st.executeUpdate();
-			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -48,12 +48,10 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 				a.setId(  rs.getLong("id")  );
 				a.setNome(  rs.getString("nome")  );
 				a.setLocalNasc(  rs.getString("localNasc")  );
-				a.setAnoMorte( rs.getDate("anoNasc") );
+				a.setAnoNasc( rs.getDate("anoNasc") );
 				a.setAnoMorte(  rs.getDate("anoMorte") );
 				lista.add( a );
 			}
-			st.close();
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -77,8 +75,6 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 				a.setAnoMorte( rs.getDate("anoNasc") );
 				a.setAnoMorte(  rs.getDate("anoMorte") );
 			}
-				st.close();
-				rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -93,7 +89,6 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 			PreparedStatement st = con.prepareStatement( sql );
 			st.setString( 1, nome );
 			st.executeUpdate();
-			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -101,11 +96,46 @@ public class ArtistaDAOImpl implements ArtistaDAO{
 	}
 
 	@Override
-	public void atualizar(Artista oldA, Artista newA) {
-		// TODO Auto-generated method stub
-		
+	public void atualizar(Artista newA) {
+		Connection con = DBUtil.getInstancia().openConnection();
+		String sql = "UPDATE artista SET nome = ?, localNasc = ?," 
+					+ " anoNasc = ?, anoMorte = ? WHERE id = ?";
+		try {
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, newA.getNome());
+			st.setString(2, newA.getLocalNasc());
+			java.sql.Date d = new java.sql.Date( newA.getAnoNasc().getTime() );
+			st.setDate(3, d );
+			d = new java.sql.Date( newA.getAnoMorte().getTime() );
+			st.setDate(4, d );
+			st.setLong(5, newA.getId());
+			st.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();
 	}
-
-
-
+	
+	public List<Artista> pesquisarTudo(){
+		Connection con = DBUtil.getInstancia().openConnection();
+		List<Artista> artistas = new ArrayList<Artista>();
+		String sql = "SELECT DISTINCT * FROM artista";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Artista a = new Artista();
+				a.setId( rs.getLong("id") );
+				a.setNome( rs.getString("nome") );
+				a.setLocalNasc("localNasc");
+				a.setAnoNasc( rs.getDate("anoNasc"));
+				a.setAnoMorte( rs.getDate("anoMorte") );
+				artistas.add( a );
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();
+		return artistas;
+	}
 }

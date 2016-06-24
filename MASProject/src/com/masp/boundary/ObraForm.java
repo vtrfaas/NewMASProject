@@ -85,7 +85,7 @@ public class ObraForm implements ActionListener {
 
 		janela.setContentPane(panPrincipal);
 
-		cbArtista.setEditable(true);
+		cbArtista.setEditable(false);
 
 		group.add(rdbtnProp);
 		group.add(rdbtnEmpr);
@@ -182,7 +182,7 @@ public class ObraForm implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		ObraControl oCont = new ObraControl(cbArtista, cbCategoria, cbMaterial, cbSetor);
+		ObraControl oCont = new ObraControl();
 
 		if ("Gravar".equals(cmd)) {
 
@@ -194,7 +194,7 @@ public class ObraForm implements ActionListener {
 
 		} else if ("Excluir".equals(cmd)) {
 
-			oCont.excluir(formToObra());
+			oCont.excluir( txtNome.getText() );
 
 		} else if ("Novo Setor".equals(cmd)) {
 			SetorForm sForm = new SetorForm();
@@ -219,10 +219,6 @@ public class ObraForm implements ActionListener {
 		} else if (e.getSource().equals(btnExcluirImagem)) {
 
 			lblImg.setIcon(null);
-
-		} else if (e.getSource().equals(cbArtista)) {
-			oCont.preencherArtista(cbArtista.getEditor().getItem().toString());
-			cbArtista.showPopup();
 
 		}
 	}

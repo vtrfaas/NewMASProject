@@ -10,8 +10,8 @@ public interface ObraDAO {
 
 	public List<Obra> pesquisar(String nome);
 
-	public void remover(Obra o);
+	public void remover(String nome);
 
-	public void atualizar(Obra o);
+	public void atualizar(Obra newO);
 
 }
