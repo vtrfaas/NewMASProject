@@ -1,20 +1,20 @@
 package com.masp.entity;
 
 public class Material {
-	private Long id;
-	private Categoria categoria;
+	private long id;
+	private long idCategoria;
 	private String nome;
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-	public Categoria getCategoria() {
-		return categoria;
+	public long getCategoria() {
+		return idCategoria;
 	}
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategoria(long idCategoria) {
+		this.idCategoria = idCategoria;
 	}
 	public String getNome() {
 		return nome;

@@ -141,8 +141,8 @@ public class ObraForm implements ActionListener {
 		txtId.setEditable(false);
 
 		cbStatus.addItem("Emprestado");
-		cbStatus.addItem("Em Manuten��o");
-		cbStatus.addItem("Em Exposi��o");
+		cbStatus.addItem("Em Manutenção");
+		cbStatus.addItem("Em Exposição");
 
 		panImg.add(lblImg = new JLabel(), BorderLayout.CENTER);// adicionar
 																// icone
@@ -301,9 +301,5 @@ public class ObraForm implements ActionListener {
 		o.setStatus(cbStatus.getSelectedItem().toString());
 
 		return o;
-	}
-
-	public static void main(String[] args) {
-		ObraForm o = new ObraForm();
 	}
 }

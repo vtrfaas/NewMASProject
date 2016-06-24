@@ -11,7 +11,7 @@ import com.masp.dao.IngressoDAO;
 import com.masp.dao.IngressoDAOImpl;
 import com.masp.entity.Ingresso;
 
-public class IngressoControl implements TableModel {
+public class IngressoControl implements TableModel, IngressoDAO {
 	
 	private IngressoDAO iDAO = new IngressoDAOImpl();
 	private List<Ingresso> lista = new ArrayList<Ingresso>();
@@ -36,7 +36,7 @@ public class IngressoControl implements TableModel {
 
 	@Override
 	public String getColumnName(int columnIndex) {
-		String [] nomes = {"Id", "Exposição", "Tipo Ingresso", "Data", "Valor"};
+		String [] nomes = {"Id", "Exposiï¿½ï¿½o", "Tipo Ingresso", "Data", "Valor"};
 		return nomes[columnIndex];
 	}
 

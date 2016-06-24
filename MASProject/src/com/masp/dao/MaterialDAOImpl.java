@@ -44,7 +44,7 @@ public class MaterialDAOImpl implements MaterialDAO {
 				m.setId(rs.getLong("id"));
 				m.setNome(rs.getString("nome"));
 				c.setId(rs.getLong("id_categoria"));
-				m.setCategoria(c);
+				m.setCategoria(c.getId());
 				materiais.add(m);
 			}
 		
@@ -71,7 +71,7 @@ public class MaterialDAOImpl implements MaterialDAO {
 				m.setId(rs.getLong("id"));
 				m.setNome(rs.getString("nome"));
 				ca.setId(rs.getLong("id_categoria"));
-				m.setCategoria(ca);
+				m.setCategoria(ca.getId());
 			}
 			ps.close();
 			rs.close();
@@ -98,7 +98,7 @@ public class MaterialDAOImpl implements MaterialDAO {
 				m.setId( rs.getLong("id") );
 				m.setNome( rs.getString("nome") );
 				ca.setId(rs.getLong("id_categoria"));
-				m.setCategoria(ca);
+				m.setCategoria(ca.getId());
 				materiais.add( m );
 			}
 			ps.close();
@@ -132,7 +132,8 @@ public class MaterialDAOImpl implements MaterialDAO {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, m.getNome());
 			Categoria c = new Categoria();
-			c = m.getCategoria();
+			long id = m.getCategoria();
+			c.setId(id);
 			ps.setLong(2, c.getId());
 			ps.setLong(3, m.getId());
 			ps.executeUpdate();
