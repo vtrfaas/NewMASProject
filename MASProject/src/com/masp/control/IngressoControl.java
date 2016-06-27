@@ -23,6 +23,14 @@ public class IngressoControl implements TableModel, IngressoDAO {
 	public List<Ingresso> pesquisar(String exposicao){
 		return iDAO.pesquisar(exposicao);
 	}
+	
+	public List<Ingresso> pesquisarId(Long id){
+		return null;
+	}
+	public List<Ingresso> pesquisarTudo(){
+		List<Ingresso> ingressos = new ArrayList<Ingresso>();
+		return ingressos;
+	}
 
 	@Override
 	public int getRowCount() {
@@ -36,13 +44,13 @@ public class IngressoControl implements TableModel, IngressoDAO {
 
 	@Override
 	public String getColumnName(int columnIndex) {
-		String [] nomes = {"Id", "Exposi��o", "Tipo Ingresso", "Data", "Valor"};
+		String [] nomes = {"Id", "Exposição", "Tipo Ingresso", "Data", "Valor"};
 		return nomes[columnIndex];
 	}
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
-		Class<?> [] classes = {Long.class, String.class, 
+		Class<?> [] classes = {Long.class, Long.class, 
 				String.class, Date.class, Float.class };
 		return classes[columnIndex];
 	}
@@ -71,7 +79,7 @@ public class IngressoControl implements TableModel, IngressoDAO {
 		Ingresso ing = lista.get(rowIndex);
 		switch( columnIndex ) { 
 			case 0 : ing.setId( (Long) aValue  );
-			case 1 : ing.setExposicao((String) aValue);
+			case 1 : ing.setExposicao((Long) aValue);
 			case 2 : ing.setTipoIngresso((String) aValue);
 			case 3 : ing.setData((Date) aValue);
 			case 4 : ing.setValor((Float) aValue);

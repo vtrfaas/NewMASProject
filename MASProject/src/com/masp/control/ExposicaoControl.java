@@ -3,39 +3,51 @@ package com.masp.control;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 import com.masp.dao.ExposicaoDAO;
+import com.masp.dao.ExposicaoDAOImpl;
+import com.masp.entity.Artista;
 import com.masp.entity.Exposicao;
-import com.masp.entity.Ingresso;
+import com.masp.entity.Obra;
 
 public class ExposicaoControl implements TableModel, ExposicaoDAO {
 
-	private List<Exposicao> lista = new ArrayList<Exposicao>();
+	private List<Obra> lista = new ArrayList<Obra>();
+	private ExposicaoDAO eDAO = new ExposicaoDAOImpl();
+	private JFrame janela = new JFrame();
+	
+	public ExposicaoControl() {}
+	
+	public ExposicaoControl(JFrame janela){
+		this.janela = janela;
+	}
+	
 	
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return lista.size();
 	}
 
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return 3;
 	}
 
 	@Override
 	public String getColumnName(int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		String [] nomes = {"Id", "Obra", "Descricao"};
+		return nomes[columnIndex];
 	}
 
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		Class<?> [] classes = {Long.class, String.class, 
+				String.class};
+		return classes[columnIndex];
 	}
 
 	@Override
@@ -46,14 +58,23 @@ public class ExposicaoControl implements TableModel, ExposicaoDAO {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		Obra o = lista.get(rowIndex);
+		switch( columnIndex ) { 
+			case 0 : return o.getId();
+			case 1 : return o.getNomeObra();
+			case 2 : return o.getDescricao();
+		}
+		return "";
 	}
 
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		
+		Obra o = lista.get(rowIndex);
+		switch( columnIndex ) { 
+			case 0 : o.setId( (Long) aValue  );
+			case 1 : o.setNomeObra((String) aValue);
+			case 2 : o.setDescricao((String) aValue);
+		}
 	}
 
 	@Override
@@ -70,32 +91,57 @@ public class ExposicaoControl implements TableModel, ExposicaoDAO {
 
 	@Override
 	public void adicionar(Exposicao ex) {
-		// TODO Auto-generated method stub
-		
+		for(int i = 0; i < ex.getObras().size(); i++){
+			Obra o = ex.getObras().get( i );
+			lista.add( o );
+		}
+		eDAO.adicionar(ex);
 	}
 
 	@Override
 	public Exposicao pesquisar(String nome) {
-		// TODO Auto-generated method stub
-		return null;
+		return eDAO.pesquisar(nome);
 	}
 
 	@Override
 	public void remover(String nome) {
-		// TODO Auto-generated method stub
-		
+		eDAO.remover(nome);
 	}
 
 	@Override
-	public void atualizar(Exposicao oldE, Exposicao newE) {
-		// TODO Auto-generated method stub
-		
+	public void atualizar(Exposicao newE) {
+		eDAO.atualizar(newE);
 	}
 
-	public void setLista(List<Exposicao> lista) {
+	public void setLista(List<Obra> lista) {
 		this.lista = lista;
 	}
-	public List<Exposicao> getLista() {
+	public List<Obra> getLista() {
 		return lista;
+	}
+
+	@Override
+	public Exposicao pesquisarId(Long id) {
+		return eDAO.pesquisarId(id);
+	}
+
+	@Override
+	public List<Exposicao> pesquisarTudo() {
+		return eDAO.pesquisarTudo();
+	}
+	
+	public String pesquisarArtista() { // ABRE UM JOptionPane COM UMA ComboBox - VITOR
+		ArtistaControl aControl = new ArtistaControl();
+		List<Artista> listaArt = aControl.pesquisarTudo();
+		Object[] possibilities = new Object[ listaArt.size() ];
+		for(int i = 0; i < listaArt.size(); i++){
+		   possibilities[ i ] = listaArt.get( i ).getNome();
+		}
+		String s = (String) JOptionPane.showInputDialog(janela, "Escolha o artista:\n", "Pesquisar o Artista",
+				JOptionPane.INFORMATION_MESSAGE, null, possibilities, possibilities[0]);
+		if (s != null && s.length() > 0) {
+			return s;
+		}
+		return "";
 	}
 }

@@ -137,4 +137,8 @@ public class ObraControl {
 		}
 		return caminhoArquivo;	
 	}
+
+	public Obra pesquisarPorId(Long id) {
+		return oDAO.pesquisarPorId(id);
+	}
 }

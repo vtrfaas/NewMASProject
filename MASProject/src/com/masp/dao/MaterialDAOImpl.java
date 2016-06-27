@@ -99,8 +99,6 @@ public class MaterialDAOImpl implements MaterialDAO {
 				m.setCategoria(ca.getId());
 				materiais.add( m );
 			}
-			ps.close();
-			rs.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

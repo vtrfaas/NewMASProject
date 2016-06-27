@@ -7,7 +7,7 @@ public class Ingresso {
 	private Date data;
 	private Float valor;
 	private int qtde;
-	private String exposicao;
+	private long idExposicao;
 	private String tipoIngresso;
 	
 	public Long getId() {
@@ -34,11 +34,11 @@ public class Ingresso {
 	public void setQtde(int qtde) {
 		this.qtde = qtde;
 	}
-	public String getExposicao() {
-		return exposicao;
+	public long getExposicao() {
+		return idExposicao;
 	}
-	public void setExposicao(String exposicao) {
-		this.exposicao = exposicao;
+	public void setExposicao(long exposicao) {
+		this.idExposicao = exposicao;
 	}
 	public String getTipoIngresso() {
 		return tipoIngresso;

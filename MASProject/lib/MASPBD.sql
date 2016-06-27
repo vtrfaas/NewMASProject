@@ -1,6 +1,6 @@
 CREATE DATABASE masp;
 
-USER masp;
+USE masp;
 
 CREATE TABLE artista (
 	id int primary key auto_increment,
@@ -44,6 +44,16 @@ CREATE TABLE exposicao (
 	tema varchar(50),
 	descricao varchar(200)
 );
+
+INSERT INTO exposicao (titulo, dtInicio, dtFim, tema, descricao) VALUES ('Segunda Guerra Mundial', '2016/06/24', '2016/06/30', 'Veiculos da Segunda Guerra Mundial', 'Transportes utilizados durante o periodo de 1939 a 1945');
+
+CREATE TABLE exposicao_obra (
+	id_obra int,
+	id_exposicao int
+);
+
+ALTER TABLE exposicao_obra ADD CONSTRAINT `fk_exposicao_obra` FOREIGN KEY (`id_obra`)REFERENCES `obra` (`id`);
+ALTER TABLE exposicao_obra ADD CONSTRAINT `fk_exposicao_obra_exp` FOREIGN KEY (`id_exposicao`)REFERENCES `exposicao` (`id`);
 
 CREATE TABLE material (
 	id int primary key auto_increment,

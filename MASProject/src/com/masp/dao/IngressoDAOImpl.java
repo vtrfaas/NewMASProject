@@ -23,7 +23,7 @@ public class IngressoDAOImpl implements IngressoDAO{
 			st.setDate( 2, d );
 			st.setFloat( 3, ing.getValor() );
 			st.setInt( 4,  ing.getQtde() );
-			st.setString(5, ing.getExposicao() );
+			st.setLong(5, ing.getExposicao() );
 			st.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -45,7 +45,7 @@ public class IngressoDAOImpl implements IngressoDAO{
 			ing.setData(  rs.getDate("data")  );
 			ing.setValor( rs.getFloat("valor") );
 			ing.setQtde( rs.getInt("qtde") );
-			ing.setExposicao( rs.getString("exposicao") );
+			ing.setExposicao( rs.getLong("exposicao") );
 			lista.add( ing );
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -54,4 +54,9 @@ public class IngressoDAOImpl implements IngressoDAO{
 		return lista;
 	}
 
+	@Override
+	public List<Ingresso> pesquisarId(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

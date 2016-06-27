@@ -4,7 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,7 +22,11 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import com.masp.control.CategoriaControl;
+import com.masp.control.ExposicaoControl;
 import com.masp.control.IngressoControl;
+import com.masp.entity.Categoria;
+import com.masp.entity.Exposicao;
 import com.masp.entity.Ingresso;
 
 public class IngressoForm implements ActionListener, ListSelectionListener {
@@ -36,26 +45,46 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 	private JButton btnGravar = new JButton("Gravar");
 	private JButton btnExcluir = new JButton("Excluir");
 	private IngressoControl controle;
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 //	private ExposicaoControl eControle = new ExposicaoControl();
+	private List<Exposicao> lista = new ArrayList<Exposicao>();
 	
 	public IngressoForm(){
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
 		JScrollPane panTable = new JScrollPane();
-		JPanel panFormulario = new JPanel( new GridLayout(5, 3) );
+		JPanel panFormulario = new JPanel( new GridLayout(8, 3) );
 		JPanel panBotoes = new JPanel();
 		cbExposicao = new JComboBox<String>();
 		cbTipoIngresso = new JComboBox<String>();
+		preencherComboExposicao();
 		cbTipoIngresso.addItem("Inteira");
 		cbTipoIngresso.addItem("Meia");
 		cbTipoIngresso.addItem("Especial");
 		panFormulario.add( new JLabel("Id: ") );
+		txtId.setEditable(false);
 		panFormulario.add( txtId );
+		panFormulario.add( new JLabel() );
 		panFormulario.add( new JLabel("Data: ") );
 		panFormulario.add( txtData );
-		panFormulario.add( new JLabel("Exposição: ") );
+		panFormulario.add( new JLabel() );
+		//Capturar a data do sistema e na txtData
+		Date data= new Date();
+		long time = System.currentTimeMillis();
+		System.out.println(""+time);
+		
+		panFormulario.add( new JLabel("ExposiÃ§Ã£o: ") );
 		panFormulario.add( cbExposicao );
+		panFormulario.add( new JLabel() );
 		panFormulario.add( new JLabel("Tipo de Ingresso: ") );
 		panFormulario.add( cbTipoIngresso );
+		panFormulario.add( new JLabel() );
+		panFormulario.add( new JLabel("Quantidade: ") );
+		panFormulario.add( txtQtde );
+		panFormulario.add( new JLabel() );
+		txtValor.setEditable(false);
+		panFormulario.add( new JLabel("Valor: ") );
+		panFormulario.add( txtValor );
+		panFormulario.add( new JLabel() );
 		panFormulario.add( panBotoes );
 		panBotoes.add( btnAdicionar );
 		panBotoes.add( btnPesquisar );
@@ -74,7 +103,7 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 		
 		janela.setContentPane( panPrincipal );
 		
-		janela.setSize(600, 400);
+		janela.setSize(850, 500);
 		janela.setVisible(true);
 		janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		janela.setLocationRelativeTo(null);
@@ -82,24 +111,58 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 	}
 	
 	public void ingressoToForm(Ingresso i){
+		ExposicaoControl eControl = new ExposicaoControl();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		txtId.setText( Long.toString( i.getId() ) );
 		txtData.setText( sdf.format( i.getData() ) );
-//		cbExposicao.setText( c.getDescricao() );
-//		cbTipoIngresso.setSelectedIndex(anIndex);
+		cbExposicao.setSelectedItem( eControl.pesquisarId(i.getExposicao()).getTitulo());
+		cbTipoIngresso.setSelectedItem( i.getTipoIngresso() );
 		
 	}
 	
+	private void preencherComboExposicao(){
+		ExposicaoControl eCont = new ExposicaoControl();
+		lista = eCont.pesquisarTudo();
+		if( lista.size() > 0 ){
+			for(int i = 0; i < lista.size(); i++){
+				cbExposicao.addItem(lista.get(i).getTitulo());
+			}
+		}
+	}
+	
+	private long escolherExposicao() {
+		long id = 0;
+		for(int i = 0; i < lista.size(); i++){
+			if( lista.get(i).getTitulo().equals( cbExposicao.getSelectedItem().toString() )){
+				id = lista.get(i).getId();
+				i = lista.size();
+			}
+		}
+		return id;
+	}
+
+	
 	public Ingresso formToIngresso(){
-		return null;
-		//pegar cada linha da tabela
+		Ingresso ing = new Ingresso();
+		try {
+			ing.setData( sdf.parse( txtData.getText() ) );
+			long id = escolherExposicao();
+			ing.setExposicao( id );
+			ing.setTipoIngresso( cbTipoIngresso.getSelectedItem().toString() );
+			ing.setQtde( Integer.parseInt( txtQtde.getText() ) );
+			ing.setValor( Float.parseFloat( txtValor.getText() ) );
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return ing;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
+		controle = new IngressoControl();
 		if("Adicionar".equals( cmd )){
-			controle = new IngressoControl();
+			
 			controle.adicionar( formToIngresso() );
 			tabela.invalidate();
 			tabela.revalidate();

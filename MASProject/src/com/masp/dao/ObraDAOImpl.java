@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.masp.entity.Categoria;
 import com.masp.entity.Obra;
 
 public class ObraDAOImpl implements ObraDAO {
@@ -113,6 +114,34 @@ public class ObraDAOImpl implements ObraDAO {
 			e.printStackTrace();
 		}
 		DBUtil.getInstancia().closeConnection();
+	}
+
+	@Override
+	public Obra pesquisarPorId(long id) {
+		Obra o = new Obra();
+		Connection con = DBUtil.getInstancia().openConnection();
+		String sql = "SELECT * FROM obra WHERE id = ? ";
+		try {
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setLong(1, id);
+			ResultSet rs = st.executeQuery();
+			o.setId(rs.getLong("id"));
+			o.setCaminhoImagem(rs.getString("imagem"));
+			o.setDescricao(rs.getString("descricao"));
+			o.setDtComposicao(rs.getDate("dataComposicao"));
+			o.setIdArtista(rs.getLong("id_artista"));
+			o.setIdCategoria(rs.getLong("id_artista"));
+			o.setIdMaterial(rs.getLong("id_material"));
+			o.setIdSetor(rs.getLong("id_setor"));
+			o.setNomeObra(rs.getString("nome"));
+			o.setProprietario(rs.getBoolean("proprietario"));
+			o.setStatus(rs.getString("status"));
+			o.setValor(rs.getFloat("preco"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();
+		return o;
 	}
 
 }

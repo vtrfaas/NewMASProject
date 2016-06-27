@@ -13,5 +13,7 @@ public interface ObraDAO {
 	public void remover(String nome);
 
 	public void atualizar(Obra newO);
+	
+	public Obra pesquisarPorId(long id);
 
 }

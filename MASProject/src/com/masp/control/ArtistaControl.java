@@ -28,6 +28,10 @@ public class ArtistaControl {
 	public Artista pesquisarPorId(Long id){
 		return aDAO.pesquisarPorId(id);
 	}
+
+	public List<Artista> pesquisarTudo() {
+		return aDAO.pesquisarTudo();
+	}
 	
 	
 }

@@ -20,7 +20,7 @@ import com.masp.entity.Artista;
 import com.masp.entity.Categoria;
 import com.masp.entity.Material;
 
-public class MaterialForm implements ActionListener{
+public class MaterialForm implements ActionListener {
 	private JFrame janela = new JFrame("MATERIAL");
 	private JTextField txtId = new JTextField();
 	private JTextField txtNome = new JTextField();
@@ -59,7 +59,7 @@ public class MaterialForm implements ActionListener{
 		
 		janela.setSize(500, 200);
 		janela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		janela.setVisible(true);
+		janela.setVisible(false);
 		janela.setLocationRelativeTo(null);
 		
 	}

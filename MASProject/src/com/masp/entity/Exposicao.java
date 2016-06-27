@@ -1,6 +1,7 @@
 package com.masp.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Exposicao {
 	private Long id;
@@ -9,7 +10,8 @@ public class Exposicao {
 	private Date dtFim;
 	private String tema;
 	private String descricao;
-	private Obra[] obras;
+	private List<Obra> obras;
+	private Float valor;
 	public Long getId() {
 		return id;
 	}
@@ -46,10 +48,16 @@ public class Exposicao {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Obra[] getObras() {
+	public List<Obra> getObras() {
 		return obras;
 	}
-	public void setObras(Obra[] obras) {
+	public void setObras(List<Obra> idObras) {
 		this.obras = obras;
+	}
+	public void setValor(Float valor){
+		this.valor = valor;
+	}
+	public Float getValor(){
+		return valor;
 	}
 }

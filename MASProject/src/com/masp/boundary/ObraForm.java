@@ -176,11 +176,11 @@ public class ObraForm implements ActionListener {
 		btnPesquisar.addActionListener(this);
 		txtNome.addActionListener(this);
 		cbArtista.addActionListener(this);
-
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		String cmd = e.getActionCommand();
 		ObraControl oCont = new ObraControl();
 
