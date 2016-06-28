@@ -10,7 +10,6 @@ import javax.swing.table.TableModel;
 
 import com.masp.dao.ExposicaoDAO;
 import com.masp.dao.ExposicaoDAOImpl;
-import com.masp.entity.Artista;
 import com.masp.entity.Exposicao;
 import com.masp.entity.Obra;
 
@@ -26,10 +25,13 @@ public class ExposicaoControl implements TableModel, ExposicaoDAO {
 		this.janela = janela;
 	}
 	
-	
 	@Override
 	public int getRowCount() {
 		return lista.size();
+	}
+	
+	public void adicionaObraLista(Obra o){
+		lista.add(o);
 	}
 
 	@Override
@@ -130,17 +132,19 @@ public class ExposicaoControl implements TableModel, ExposicaoDAO {
 		return eDAO.pesquisarTudo();
 	}
 	
-	public String pesquisarArtista() { // ABRE UM JOptionPane COM UMA ComboBox - VITOR
-		ArtistaControl aControl = new ArtistaControl();
-		List<Artista> listaArt = aControl.pesquisarTudo();
-		Object[] possibilities = new Object[ listaArt.size() ];
-		for(int i = 0; i < listaArt.size(); i++){
-		   possibilities[ i ] = listaArt.get( i ).getNome();
+	public String pesquisarObra() { // ABRE UM JOptionPane COM UMA ComboBox - VITOR
+		ObraControl oControl = new ObraControl();
+		List<Obra> listaObra = oControl.pesquisarTudo();
+		Object[] possibilities = new Object[ listaObra.size() ];
+		for(int i = 0; i < listaObra.size(); i++){
+		   possibilities[ i ] = listaObra.get( i ).getNomeObra();
 		}
-		String s = (String) JOptionPane.showInputDialog(janela, "Escolha o artista:\n", "Pesquisar o Artista",
-				JOptionPane.INFORMATION_MESSAGE, null, possibilities, possibilities[0]);
-		if (s != null && s.length() > 0) {
-			return s;
+		if(possibilities.length > 0){
+			String s = (String) JOptionPane.showInputDialog(janela, "Escolha a obra:\n", "Pesquisar obra",
+					JOptionPane.INFORMATION_MESSAGE, null, possibilities, possibilities[0]);
+			if (s != null && s.length() > 0) {
+				return s;
+			}
 		}
 		return "";
 	}

@@ -141,4 +141,8 @@ public class ObraControl {
 	public Obra pesquisarPorId(Long id) {
 		return oDAO.pesquisarPorId(id);
 	}
+
+	public List<Obra> pesquisarTudo() {
+		return oDAO.pesquisarTudo();
+	}
 }

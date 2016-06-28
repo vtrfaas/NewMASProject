@@ -94,6 +94,7 @@ public class ObraForm implements ActionListener {
 		panPrincipal.add(panImg, BorderLayout.CENTER);
 		panPrincipal.add(panBtn, BorderLayout.SOUTH);
 
+		txtId.setEditable(false);
 		panForm.add(new JLabel("ID: "));
 		panForm.add(txtId);
 		panForm.add(new JLabel());
@@ -281,7 +282,7 @@ public class ObraForm implements ActionListener {
 		o.setValor(Float.parseFloat(txtValor.getText()));
 		o.setDescricao(txtDescricao.getText());
 		o.setCaminhoImagem(caminhoImagem);
-		o.setId(Long.parseLong(txtId.getText()));
+//		o.setId(Long.parseLong(txtId.getText()));
 
 		if (rdbtnProp.isSelected()) {
 			o.setProprietario(true);

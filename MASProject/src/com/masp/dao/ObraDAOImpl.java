@@ -7,12 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.masp.entity.Categoria;
 import com.masp.entity.Obra;
 
 public class ObraDAOImpl implements ObraDAO {
-
-
 
 	@Override
 	public void adicionar(Obra o) {
@@ -142,6 +139,36 @@ public class ObraDAOImpl implements ObraDAO {
 		}
 		DBUtil.getInstancia().closeConnection();
 		return o;
+	}
+
+	public List<Obra> pesquisarTudo() {
+		Connection con = DBUtil.getInstancia().openConnection();
+		List<Obra> obras = new ArrayList<Obra>();
+		String sql = "SELECT * FROM obra";
+		try {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Obra o = new Obra();
+				o.setId(rs.getLong("id"));
+				o.setCaminhoImagem(rs.getString("imagem"));
+				o.setDescricao(rs.getString("descricao"));
+				o.setDtComposicao(rs.getDate("dataComposicao"));
+				o.setIdArtista(rs.getLong("id_artista"));
+				o.setIdCategoria(rs.getLong("id_artista"));
+				o.setIdMaterial(rs.getLong("id_material"));
+				o.setIdSetor(rs.getLong("id_setor"));
+				o.setNomeObra(rs.getString("nome"));
+				o.setProprietario(rs.getBoolean("proprietario"));
+				o.setStatus(rs.getString("status"));
+				o.setValor(rs.getFloat("preco"));
+				obras.add(o);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBUtil.getInstancia().closeConnection();
+		return obras;
 	}
 
 }

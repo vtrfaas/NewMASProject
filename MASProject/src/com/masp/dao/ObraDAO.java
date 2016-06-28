@@ -15,5 +15,7 @@ public interface ObraDAO {
 	public void atualizar(Obra newO);
 	
 	public Obra pesquisarPorId(long id);
+	
+	public List<Obra> pesquisarTudo();
 
 }

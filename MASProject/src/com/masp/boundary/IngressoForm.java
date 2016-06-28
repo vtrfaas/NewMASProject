@@ -44,11 +44,11 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 	private JButton btnPesquisar = new JButton("Pesquisar");
 	private JButton btnGravar = new JButton("Gravar");
 	private JButton btnExcluir = new JButton("Excluir");
-	private IngressoControl controle;
+	private IngressoControl controle = new IngressoControl();
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 //	private ExposicaoControl eControle = new ExposicaoControl();
 	private List<Exposicao> lista = new ArrayList<Exposicao>();
-	
+	private Exposicao ex = new Exposicao();
 	public IngressoForm(){
 		JPanel panPrincipal = new JPanel( new BorderLayout() );
 		JScrollPane panTable = new JScrollPane();
@@ -92,7 +92,8 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 		btnAdicionar.addActionListener( this );
 		btnPesquisar.addActionListener( this );
 		btnExcluir.addActionListener( this );
-		
+		cbTipoIngresso.addActionListener(this);
+		cbExposicao.addActionListener(this);
 		panPrincipal.add(panFormulario, BorderLayout.NORTH);
 		panPrincipal.add(panTable, BorderLayout.CENTER);
 		
@@ -159,8 +160,28 @@ public class IngressoForm implements ActionListener, ListSelectionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		JComboBox cb = (JComboBox) e.getSource();
+		String ingresso = (String) cbTipoIngresso.getSelectedItem();
+		String exposicao = (String) cbExposicao.getSelectedItem();
+		if( cb.equals(cbTipoIngresso) ){
+			if( txtValor != null ){
+				if(ingresso.equals("Inteira")){
+					txtValor.setText(Float.toString( ex.getValor() ) );
+				} else if(ingresso.equals("Meia")){
+					float valor = ex.getValor() / 2;
+					txtValor.setText( Float.toString(valor));
+				} else {
+					txtValor.setText( "0" );
+				}
+			}
+		}
+		if( cb.equals(cbExposicao)){
+			ex = new Exposicao();
+			ExposicaoControl eControl = new ExposicaoControl();
+			ex = eControl.pesquisar(exposicao);
+			txtValor.setText( Float.toString( ex.getValor() ) );
+		}
 		String cmd = e.getActionCommand();
-		controle = new IngressoControl();
 		if("Adicionar".equals( cmd )){
 			
 			controle.adicionar( formToIngresso() );

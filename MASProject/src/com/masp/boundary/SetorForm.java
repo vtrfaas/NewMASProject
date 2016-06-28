@@ -10,12 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.masp.control.CategoriaControl;
 import com.masp.control.SetorControl;
 import com.masp.entity.Categoria;
+import com.masp.entity.Material;
 import com.masp.entity.Setor;
 
 public class SetorForm implements ActionListener {
@@ -66,7 +68,7 @@ public class SetorForm implements ActionListener {
 		txtAndar.setText( s.getAndar() );
 	}
 	
-	public Setor formToCategoria() { 
+	public Setor formToSetor() { 
 		Setor s = new Setor();
 		try {
 			s.setNome( txtNome.getText() );				
@@ -91,7 +93,18 @@ public class SetorForm implements ActionListener {
 			limpar();
 			isPressed = false;
 		} else if("Gravar".equals( cmd )){
-			
+			if(isPressed){
+				Setor newM = formToSetor();
+				newM.setId( Long.parseLong( txtId.getText() ));
+				controle.atualizar(newM);
+				isPressed = false;
+				JOptionPane.showMessageDialog(janela, "Registro Atualizado com Sucesso");
+				limpar();
+			} else {
+				controle.adicionar( formToSetor() );
+				JOptionPane.showMessageDialog(janela, "Registro Adicionado com Sucesso");
+				limpar();
+			}
 		}
 	}
 	

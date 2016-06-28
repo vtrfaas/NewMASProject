@@ -25,6 +25,8 @@ CREATE TABLE setor (
 	andar varchar(20) not null
 );
 
+INSERT INTO setor (id, nome, andar) VALUES (1, 'Renascimento', 1);
+
 CREATE TABLE ingresso (
 	id int primary key auto_increment,
 	dataVenda date,
@@ -44,6 +46,8 @@ CREATE TABLE exposicao (
 	tema varchar(50),
 	descricao varchar(200)
 );
+
+ALTER TABLE exposicao ADD COLUMN valor float;
 
 INSERT INTO exposicao (titulo, dtInicio, dtFim, tema, descricao) VALUES ('Segunda Guerra Mundial', '2016/06/24', '2016/06/30', 'Veiculos da Segunda Guerra Mundial', 'Transportes utilizados durante o periodo de 1939 a 1945');
 

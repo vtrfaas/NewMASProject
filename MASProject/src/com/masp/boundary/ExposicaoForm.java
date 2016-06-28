@@ -36,7 +36,7 @@ public class ExposicaoForm implements ActionListener, ListSelectionListener{
 	private JTextArea txtaDescricao = new JTextArea();
 	private JTextField txtValor = new JTextField();
 	private JTable tabelaObras;
-	private ExposicaoControl controle;
+	private ExposicaoControl controle = new ExposicaoControl();
 	private JButton btnAdicionar = new JButton("Adicionar");
 	private JButton btnExcluir = new JButton("Excluir");
 	private JButton btnPesquisar = new JButton("Pesquisar");
@@ -148,7 +148,6 @@ public class ExposicaoForm implements ActionListener, ListSelectionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
-		controle = new ExposicaoControl();
 		if("Gravar".equals( cmd )){
 			controle.adicionar( formToExposicao() );
 			tabelaObras.invalidate();
@@ -172,7 +171,12 @@ public class ExposicaoForm implements ActionListener, ListSelectionListener{
 			tabelaObras.invalidate();
 			tabelaObras.revalidate();
 		} else if("Adicionar".equals( cmd )){
-			controle.pesquisarArtista();
+			ObraControl oControl = new ObraControl();
+			String obra = controle.pesquisarObra();
+			Obra o = oControl.pesquisar(obra);
+			controle.adicionaObraLista(o);
+			tabelaObras.invalidate();
+			tabelaObras.revalidate();
 		}
 	}
 
